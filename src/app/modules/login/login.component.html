@@ -1,0 +1,18 @@
+<div id="background">
+    <p-toast position="top-right"></p-toast>
+    <div id="panelExterno">
+        <p-card [style]="{width:'100%', heigh:'100%'}" header="Login">
+            <div id="panelInterno">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
+                    <input id="inputUsername" type="text" pInputText placeholder="Username" (blur)="user.login = getValue($event)" (keyup.enter)="focusUsername()">         
+                </div>
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
+                    <input id="inputPassword" type="password" pInputText placeholder="Password" (blur)="user.password = getValue($event)" (keyup.enter)="focusPassword()">         
+                </div>
+                <button pButton id="btnEnter" label="Enter" (click)="login()"></button>
+            </div>
+        </p-card>  
+    </div>
+</div>
