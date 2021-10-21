@@ -1,0 +1,60 @@
+#panelExterno{
+    width: 415px;
+    height: 350px;
+}
+#panelInterno{
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+}
+.column label{
+    margin-top: 20px;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+}
+#btnEnviar{
+    width: 30%;
+    height: 80%;
+    margin-top: auto;
+    margin-left: auto;
+}
+#options{
+    width: 98%;
+    height: 70px;
+    margin-top: 45px;
+    margin-bottom: 5px;
+    align-self: center;
+}
+#divTipoUsuario{
+    display: flex;
+    flex-direction: column;
+}
+#divTipoUsuario label{
+    margin-bottom: 5px;
+}
+input{
+    width: 70%;
+    height: 40px;
+}
+#inputPasswordR{
+    width: 90%;
+    margin-right: 2%;
+}
+#inputPasswordRepetidoR{
+    width: 90%;
+}
+#inputUsernameR{
+    width: 60%;
+}
+#divRepPass{
+    margin-left: 1%;
+}
+#divPass{
+    margin-right: 1%;
+}

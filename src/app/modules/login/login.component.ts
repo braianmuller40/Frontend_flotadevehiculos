@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { MessageService } from 'primeng/api';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,15 +13,19 @@ export class LoginComponent implements OnInit {
 
   user:User = new User();
 
-  constructor(private authServ:AuthService,private messageService: MessageService) { }
+  displayRegistro:boolean = false;
+
+  constructor(private authServ:AuthService,private messageService: MessageService,private router:Router) {
+    
+  }
 
   ngOnInit(): void {
+    this.isLogged();
     document.getElementById('inputUsername')?.focus();
   }
 
 
   login(){
-    console.log(this.user);
     this.authServ.login(this.user)
     .catch(error => {
       this.messageService.add({severity:'error', summary:'Error', detail:'Usuario o Contraseña incorrectos'});
@@ -31,12 +36,19 @@ getValue(event:any){
   return event.target.value;
 }
 
-focusUsername(){
+focusPassword(){
   document.getElementById('inputPassword')?.focus();
 }
 
-focusPassword(){
+focusBtnEnter(){
   document.getElementById('btnEnter')?.focus();
 }
+
+isLogged(){
+  if(this.authServ.userLogged()){
+    this.router.navigate(['/']);
+  }
+}
+
 
 }

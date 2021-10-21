@@ -4,7 +4,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './modules/login/login.module';
-
+import {MenubarModule} from 'primeng/menubar';
+import { ButtonModule } from 'primeng/button';
+import { AuthService } from './shared/services/auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -14,9 +16,11 @@ import { LoginModule } from './modules/login/login.module';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    MenubarModule,
+    ButtonModule,
     LoginModule
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

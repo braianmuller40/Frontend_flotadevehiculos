@@ -5,17 +5,31 @@ import {ButtonModule} from 'primeng/button';
 import {CardModule} from 'primeng/card';
 import { MessageService } from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
+import {DialogModule} from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RegisterComponent } from './components/register/register.component';
+import {SelectButtonModule} from 'primeng/selectbutton';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {PasswordModule} from 'primeng/password';
+import {InputTextModule} from 'primeng/inputtext';
+import {TooltipModule} from 'primeng/tooltip';
 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     ButtonModule,
     CardModule,
     ToastModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DialogModule,
+    SelectButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PasswordModule,
+    InputTextModule,
+    TooltipModule
   ],
   providers:[MessageService]
 })
