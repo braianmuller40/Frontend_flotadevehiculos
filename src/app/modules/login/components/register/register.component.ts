@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
         let value = this.form.value;
         delete value.passwordRepetido;
         Object.assign(value,{fecha_creacion:new Date()});
-        this.userService.post(value).then(result => {console.log(result)});
+        this.userService.post(value).then(result => {console.log(result);this.buildForm();});
      }else{
        this.validarFormulario();
      }
