@@ -12,6 +12,7 @@ import { AgendamientosModule } from './modules/agendamientos/agendamientos.modul
 import { ServiciosModule } from './modules/servicios/servicios.module';
 import { HomeModule } from './modules/home/home.module';
 import { UsuariosModule } from './modules/usuarios/usuarios.module';
+import { SharedModule } from 'primeng/api';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { UsuariosModule } from './modules/usuarios/usuarios.module';
     AppRoutingModule,
     HttpClientModule,
     MenubarModule,
+    SharedModule,
     ButtonModule,
     LoginModule,
     AutosModule,

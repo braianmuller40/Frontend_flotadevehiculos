@@ -44,6 +44,14 @@ export class AppComponent implements OnInit{
           icon: 'far fa-calendar-alt',
           routerLink:['/agendamientos']
       },
+      {
+        label: 'Opciones',
+        icon: 'fas fa-briefcase',
+        style: {'margin-left': 'auto','margin-right':'4%'},
+        items:[
+                 {label: 'Perfil', icon: 'fas fa-user-circle'},
+              ]
+      },
   ];
   }
 
