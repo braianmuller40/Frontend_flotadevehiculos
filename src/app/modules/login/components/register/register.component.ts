@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { TipoUsuario } from 'src/app/shared/enums/tipos-usuario.enum';
 import { GenericService } from 'src/app/shared/generic/services/generic-service/generic.service';
+import { UsuariosService } from 'src/app/shared/services/usuarios/usuarios.service';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +22,7 @@ export class RegisterComponent implements OnInit {
     "Es nessesario completar ambos campos de passwords",
   ];
 
-  constructor(private service:GenericService) {
+  constructor(private userService:UsuariosService) {
     this.form = new FormGroup({});
     this.stateOptions = this.getTiposUsuario();
    }
@@ -46,8 +47,7 @@ export class RegisterComponent implements OnInit {
         let value = this.form.value;
         delete value.passwordRepetido;
         Object.assign(value,{fecha_creacion:new Date()});
-        console.log(value);
-        this.service.post("usuarios",value).then(result => {this.buildForm()});
+        this.userService.post(value).then(result => {console.log(result)});
      }else{
        this.validarFormulario();
      }

@@ -1,33 +1,30 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class GenericService{
 
-  constructor(private httpClient: HttpClient) {}
+export class GenericService<Model>{
+
+  constructor(private readonly dir:string,private readonly _httpClient:HttpClient) {}
 
   url = "http://localhost:3000/";
 
-  async getMany(local:string){
-    return await this.httpClient.get(this.url+local).toPromise();
+  async getMany(){
+    return await this._httpClient.get<Array<Model>>(this.url+this.dir).toPromise();
   }
 
-  async get(local:string, id:number){
-    return await this.httpClient.get(this.url+local+"/"+id).toPromise();
+  async get(id:number){
+    return await this._httpClient.get(this.url+this.dir+"/"+id).toPromise();
   }
 
-  async post(local:string, obj:any){
-    return await this.httpClient.post(this.url+local, obj).toPromise();
+  async post(obj:Model){
+    return await this._httpClient.post<Model>(this.url+this.dir, obj).toPromise();
    }
 
-  async put(local:string, obj:any){
-    return await this.httpClient.put(this.url+local+"/"+obj.id, obj).toPromise();
+  async put(obj:Model, id:number){
+    return await this._httpClient.put<Model>(this.url+this.dir+"/"+id, obj).toPromise();
   }
 
-  async delete(local:string, id:number){
-    return await this.httpClient.delete(this.url+local+"/"+id).toPromise();
+  async delete(id:number){
+    return await this._httpClient.delete(this.url+this.dir+"/"+id).toPromise();
   }
 
 }
