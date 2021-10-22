@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import {MenuItem} from 'primeng/api';
 import { AuthService } from './shared/services/auth/auth.service';
 
@@ -20,20 +20,29 @@ export class AppComponent implements OnInit{
   ngOnInit() {
     this.items = [
       {
+        label: 'Home',
+        icon: 'fas fa-home',
+        routerLink:['/']
+      },
+      {
           label: 'Autos',
-          icon: 'fas fa-car'
+          icon: 'fas fa-car',
+          routerLink:['/autos']
       },
       {
           label: 'Servicios',
-          icon: 'fas fa-tasks'
+          icon: 'fas fa-tasks',
+          routerLink:['/servicios']
       },
       {
           label: 'Usuarios',
           icon: 'fas fa-user',
+          routerLink:['/usuarios']
       },
       {
           label: 'Agendamientos',
           icon: 'far fa-calendar-alt',
+          routerLink:['/agendamientos']
       },
   ];
   }

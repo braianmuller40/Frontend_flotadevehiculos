@@ -7,6 +7,12 @@ import { LoginModule } from './modules/login/login.module';
 import {MenubarModule} from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from './shared/services/auth/auth.service';
+import { AutosModule } from './modules/autos/autos.module';
+import { AgendamientosModule } from './modules/agendamientos/agendamientos.module';
+import { ServiciosModule } from './modules/servicios/servicios.module';
+import { HomeModule } from './modules/home/home.module';
+import { UsuariosModule } from './modules/usuarios/usuarios.module';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +24,12 @@ import { AuthService } from './shared/services/auth/auth.service';
     HttpClientModule,
     MenubarModule,
     ButtonModule,
-    LoginModule
+    LoginModule,
+    AutosModule,
+    AgendamientosModule,
+    ServiciosModule,
+    HomeModule,
+    UsuariosModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]
