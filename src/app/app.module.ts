@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './modules/login/login.module';
-import {MenubarModule} from 'primeng/menubar';
+import { MenubarModule} from 'primeng/menubar';
 import { ButtonModule } from 'primeng/button';
 import { AuthService } from './shared/services/auth/auth.service';
 import { AutosModule } from './modules/autos/autos.module';
@@ -13,11 +13,22 @@ import { ServiciosModule } from './modules/servicios/servicios.module';
 import { HomeModule } from './modules/home/home.module';
 import { UsuariosModule } from './modules/usuarios/usuarios.module';
 import { SharedModule } from 'primeng/api';
+import { DialogModule } from 'primeng/dialog';
+import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
+import { MenuModule} from 'primeng/menu';
+import { CambiarContrasenaComponent } from './configuraciones/components/cambiar-contrasena/cambiar-contrasena.component';
+import { TiposServicioComponent } from './configuraciones/components/tipos-servicio/tipos-servicio.component';
+import {InputTextModule} from 'primeng/inputtext';
+import { TooltipModule } from 'primeng/tooltip';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ConfiguracionesComponent,
+    CambiarContrasenaComponent,
+    TiposServicioComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +42,14 @@ import { SharedModule } from 'primeng/api';
     AgendamientosModule,
     ServiciosModule,
     HomeModule,
-    UsuariosModule
+    UsuariosModule,
+    DialogModule,
+    MenuModule,
+    InputTextModule,
+    ButtonModule,
+    TooltipModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent]

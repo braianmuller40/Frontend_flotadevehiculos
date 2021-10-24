@@ -42,14 +42,14 @@ input{
     width: 70%;
     height: 40px;
 }
-#inputPasswordR{
+#password{
     width: 90%;
     margin-right: 2%;
 }
-#inputPasswordRepetidoR{
+#passwordRepetido{
     width: 90%;
 }
-#inputUsernameR{
+#login{
     width: 60%;
 }
 #divRepPass{

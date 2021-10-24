@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import {MenuItem} from 'primeng/api';
+import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { AuthService } from './shared/services/auth/auth.service';
 
 @Component({
@@ -9,10 +10,12 @@ import { AuthService } from './shared/services/auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
+  @ViewChild(ConfiguracionesComponent) conf!:ConfiguracionesComponent;
 
   items: MenuItem[]=[];
 
   displayMenu:boolean = false;
+  displayConfiguraciones:boolean = false
 
   constructor(private authServ:AuthService,private router:Router) {
   }
@@ -31,7 +34,7 @@ export class AppComponent implements OnInit{
       },
       {
           label: 'Servicios',
-          icon: 'fas fa-tasks',
+          icon: 'fas fa-car-crash',
           routerLink:['/servicios']
       },
       {
@@ -45,18 +48,21 @@ export class AppComponent implements OnInit{
           routerLink:['/agendamientos']
       },
       {
-        label: 'Opciones',
-        icon: 'fas fa-briefcase',
+        label: 'Configuraciones',
+        icon: 'fas fa-cog',
         style: {'margin-left': 'auto','margin-right':'4%'},
-        items:[
-                 {label: 'Perfil', icon: 'fas fa-user-circle'},
-              ]
+        command:() =>this.displayConfig()
       },
   ];
   }
 
   isLogged(){
     return this.authServ.userLogged();
+  }
+  
+  displayConfig(){
+    this.displayConfiguraciones=true;
+    this.conf.displayFalse();
   }
 
   salir(){

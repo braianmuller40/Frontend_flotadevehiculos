@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
+import { Utils } from 'src/app/shared/utils/utils';
 
 
 export class GenericService<Model>{
 
   constructor(private readonly dir:string,private readonly _httpClient:HttpClient) {}
 
-  url = "http://localhost:3000/";
+  url = Utils.ip();
 
   async getMany(){
     return await this._httpClient.get<Array<Model>>(this.url+this.dir).toPromise();

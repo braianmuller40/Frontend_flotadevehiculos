@@ -1,0 +1,9 @@
+<div id="panelExterno">
+     <p-menu [model]="items">
+     </p-menu>
+     <hr id="linea">
+     <div id="panelInterno">
+          <div *ngIf="displayCambiarContrasena"><app-cambiar-contrasena></app-cambiar-contrasena></div>
+          <div *ngIf="displayTiposServicio"><app-tipos-servicio></app-tipos-servicio></div>
+     </div>
+</div>

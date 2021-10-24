@@ -1,0 +1,15 @@
+#panelExterno{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#linea{
+    margin-left: 2%;
+}
+#panelInterno{
+    width: 400px;
+    height: 300px;
+    margin-left: 5%;
+    margin-right: 10%;
+}

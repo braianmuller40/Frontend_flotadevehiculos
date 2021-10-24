@@ -4,22 +4,22 @@
 
         <div class="p-field column">
             <label>Nombre</label>
-            <input id="inputNombreR" type="text" pInputText [pTooltip]="Msg[msgNumber]" tooltipEvent="focus" (blur)="msgNumber=0" formControlName="nombre"/>
+            <input  id="nombre" type="text" pInputText [pTooltip]="formError.nombre" tooltipEvent="focus" formControlName="nombre"/>
         </div>
 
         <div class="p-field column">
             <label>Username</label>
-            <input id="inputUsernameR" type="text" pInputText [pTooltip]="Msg[msgNumber]" tooltipEvent="focus" (blur)="msgNumber=0"  formControlName="login"/>
+            <input  id="login" type="text" pInputText [pTooltip]="formError.login" tooltipEvent="focus" formControlName="login"/>
         </div>
 
         <div id="divPasswords" class="row">
              <div id="divPass" class="p-field column">
                 <label>Password</label>
-                <p-password id="inputPasswordR" [pTooltip]="Msg[msgNumber]" tooltipEvent="focus" (blur)="msgNumber=0" formControlName="password"></p-password>
+                <p-password  id="password" [pTooltip]="formError.password" tooltipEvent="focus" formControlName="password"></p-password>
             </div>
             <div id="divRepPass" class="p-field column">
                 <label>Repetir Password</label>
-                <input id="inputPasswordRepetidoR" type="password" pInputText  [pTooltip]="Msg[msgNumber]" tooltipEvent="focus" (blur)="msgNumber=0" formControlName="passwordRepetido"/>
+                <input  id="passwordRepetido" type="password" pInputText  [pTooltip]="formError.passwordRepetido" tooltipEvent="focus" formControlName="passwordRepetido"/>
             </div>
         </div>
 

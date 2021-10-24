@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CambiarContrasenaComponent } from './configuraciones/components/cambiar-contrasena/cambiar-contrasena.component';
+import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { AuthGuard } from './core/guards/auth.guard';
 import { AgendamientosComponent } from './modules/agendamientos/agendamientos.component';
 import { AutosComponent } from './modules/autos/autos.component';

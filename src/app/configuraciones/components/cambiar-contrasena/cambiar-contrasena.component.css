@@ -1,0 +1,22 @@
+#panelExterno{
+    width: 100%;
+    height: 100%;
+}
+#panelInterno{
+    margin-left: 15%;
+    margin-right: 15%;
+}
+#divBtnCambiar{
+    display: flex;
+    flex-direction: row;
+    margin-top: 8%;
+    justify-content: flex-end;
+}
+#btnCambiar{
+   font-family: Arial, Helvetica, sans-serif;
+}
+.column{
+    margin-top: 5%;
+    display: flex;
+    flex-direction: column;
+}

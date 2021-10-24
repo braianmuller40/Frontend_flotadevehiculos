@@ -1,8 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { TipoUsuario } from 'src/app/shared/enums/tipos-usuario.enum';
 import { GenericService } from 'src/app/shared/generic/services/generic-service/generic.service';
 import { UsuariosService } from 'src/app/shared/services/usuarios/usuarios.service';
+import { ValidatorService } from 'src/app/shared/services/validatorForm/validator.service';
 
 @Component({
   selector: 'app-register',
@@ -13,16 +14,15 @@ export class RegisterComponent implements OnInit {
 
   form: FormGroup;
   stateOptions: any[] = [];
-  msgNumber:number=0;
-  Msg:Array<string> = [
-    "",
-    "Este campo es requerido",
-    "Ultrapasaste la cantidad de caracteres",
-    "Las contrasenas no coiciden",
-    "Es nessesario completar ambos campos de passwords",
-  ];
+  formError:{[key:string]:string}={
+    nombre:'',
+    login:'',
+    password:'',
+    passwordRepetido:''
+  }
 
-  constructor(private userService:UsuariosService) {
+
+  constructor(private userService:UsuariosService, private validatoForm:ValidatorService) {
     this.form = new FormGroup({});
     this.stateOptions = this.getTiposUsuario();
    }
@@ -49,9 +49,30 @@ export class RegisterComponent implements OnInit {
         Object.assign(value,{fecha_creacion:new Date()});
         this.userService.post(value).then(result => {console.log(result);this.buildForm();});
      }else{
-       this.validarFormulario();
+       this.getFormErrors();
+       this.validarPasswordRepetido()?this.formError.passwordRepetido = "Los passwords no son iguales":false;
+       this.focusValidation();
      }
   }
+
+
+  getFormErrors(){
+    let result = this.validatoForm.getErrors(this.form);
+    for(let v of result){
+      this.formError[v.position]=v.msj;
+    }
+  }
+
+
+  focusValidation(){
+    for(let t in this.formError){
+      if(this.formError[t] != '' && t != "password"){
+        document.getElementById(t)?.focus();
+        break;
+      }
+    }
+  }
+  
 
   getTiposUsuario(){
     let tipos = Object.values(TipoUsuario);
@@ -63,25 +84,12 @@ export class RegisterComponent implements OnInit {
   }
 
 
-  displayMensaje(campo:string,msg:number){
-    this.msgNumber=msg;
-    document.getElementById(campo)?.focus();
-  }
-
   validarPasswordRepetido(){
-    if(this.form.get('password')?.value !== this.form.get('passwordRepetido')?.value){
+    if(this.form.get('password')?.value !== this.form.get('passwordRepetido')?.value 
+    && this.formError.passwordRepetido == ''){
       return true;
     }
     return false;
-  }
-
-  validarFormulario(){
-    this.form.get('nombre')?.hasError('required')?this.displayMensaje('inputNombreR',1):
-    this.form.get('nombre')?.hasError('maxlength')?this.displayMensaje('inputNombreR',2):
-    this.form.get('login')?.hasError('required')?this.displayMensaje('inputUsernameR',1):
-    this.form.get('login')?.hasError('maxlength')?this.displayMensaje('inputUsernameR',2):
-    this.form.get('password')?.hasError('required')?this.displayMensaje('inputPasswordRepetidoR',4):
-    this.validarPasswordRepetido()?this.displayMensaje('inputPasswordRepetidoR',3):false;
   }
 
 }

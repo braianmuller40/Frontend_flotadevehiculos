@@ -1,12 +1,14 @@
 <div id="background">
     <p-toast position="top-right"></p-toast>
     <div id="panelExterno">
-        <p-card [style]="{width:'100%', heigh:'100%'}" header="Login">
+        <p-card [style]="{width:'100%', heigh:'100%'}">
             <div id="imgLogin">
-                <img src="../../../assets/imagenes/icon-coches-recortado.png" alt="">
+                <img src="../../../assets/imagenes/icon-coches-recortado-login.png" alt="">
+                <label>FLOTA DE VEHICULOS</label>
             </div>
             <hr>
             <div id="panelInterno">
+                <label id="labelLogin">Login</label>
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
                     <input id="inputUsername" type="text" pInputText placeholder="Username" (blur)="user.login = getValue($event)" (keyup.enter)="focusPassword()">         
