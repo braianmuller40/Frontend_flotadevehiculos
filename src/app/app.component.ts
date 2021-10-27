@@ -25,6 +25,7 @@ export class AppComponent implements OnInit{
       {
         label: 'Home',
         icon: 'fas fa-home',
+        style: {'margin-left': '15px'},
         routerLink:['/']
       },
       {

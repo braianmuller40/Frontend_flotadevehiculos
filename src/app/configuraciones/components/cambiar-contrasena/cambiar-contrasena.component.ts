@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UsuariosService } from 'src/app/shared/services/usuarios/usuarios.service';
 import { ValidatorService } from 'src/app/shared/services/validatorForm/validator.service';
 import { MessageService } from 'primeng/api';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-cambiar-contrasena',
@@ -12,14 +13,12 @@ import { MessageService } from 'primeng/api';
 export class CambiarContrasenaComponent implements OnInit {
 
   formCambiar: FormGroup;
-  stateOptions: any[] = [];
   formError:{[key:string]:string}={
-    login:'',
     password:'',
     new_password:''
   }
 
-  constructor(private userService:UsuariosService, private validatoForm:ValidatorService, private messageService: MessageService) { 
+  constructor(private userService:UsuariosService, private validatoForm:ValidatorService, private auth:AuthService) { 
     this.formCambiar = new FormGroup({});
   }
 
@@ -29,7 +28,6 @@ export class CambiarContrasenaComponent implements OnInit {
 
   private buildForm() {
     this.formCambiar = new FormGroup({
-      login: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required]),
       new_password: new FormControl('', [Validators.required])
     });
@@ -39,6 +37,7 @@ export class CambiarContrasenaComponent implements OnInit {
     event.preventDefault();
      if(this.formCambiar.valid){
         let value = this.formCambiar.value;
+        Object.assign(value,{login:this.auth.getLogin()});
         this.userService.changePassword(value).then(result => this.buildForm()).catch(error => {console.log("login o password equivocados");this.buildForm();});
      }else{
        this.getFormErrors();

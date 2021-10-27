@@ -1,1 +1,31 @@
-<p>tipos-servicio works!</p>
+<div id="panelExterno">
+    <div id="panelInterno">
+        <div id="agregarTipo">
+            <label>Agregar tipo de Servicio</label>
+            <form [formGroup]="form" (ngSubmit)="enviarRegistro($event)">
+                <div id="divAgregar">
+                    <input id="descripcion" type="text"  pInputText [pTooltip]="formError.descripcion" tooltipPosition="bottom" tooltipEvent="focus" formControlName="descripcion">
+                    <p-button id="btnAgregar" type="submit" label="Agregar"></p-button>
+                </div>
+            </form>
+        </div>
+        <div id="administrarTipo">
+            <label>Administrar tipo de servicio</label>
+            <div id="divAdministrar">
+                <div *ngIf="displayModElim" id="divModElim">
+                    <select id="selectAdministrar" (change)="capturarTipo($event)" >
+                        <option value="">selecciones un item</option>
+                        <option *ngFor="let item of listaTiposServicio" [value]="item.id" >{{item.descripcion}}</option>
+                    </select>
+                    <p-button id="btnModificar" label="Modificar" (click)="modificarTipo()"></p-button>
+                    <p-button id="btnEliminar" label="Eliminar" (click)="eliminarTipo()"></p-button>
+                </div>
+                <div *ngIf="displayGuardCancel" id="divGuardCancel">
+                    <input id="inputGuardar" type="text"  pInputText [value]="itemModificar" (blur)="capturarModificacion($event)">
+                    <p-button id="btnGuardar" label="Guardar" (click)="guardarModificacion()"></p-button>
+                    <p-button id="btnCancelar" label="Cancelar" (click)="cancelarModificacion()"></p-button>
+                </div>  
+            </div> 
+        </div>
+    </div>
+</div>

@@ -42,6 +42,7 @@ focusPassword(){
 
 focusBtnEnter(){
   document.getElementById('btnEnter')?.focus();
+  setTimeout(()=>this.login(),10);
 }
 
 isLogged(){

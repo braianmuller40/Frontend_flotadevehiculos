@@ -9,17 +9,33 @@ import { Utils } from '../../utils/utils';
 })
 export class AuthService {
 
+  user!:User;
+
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   api = Utils.ip();
 
   async login(user:User){
+    this.user = user;
    return await this.httpClient.post(this.api+"/login" , user).toPromise().then(result => this.storage(result));
   }
 
   storage(result:any){
+    this.setLogin(this.user);
     localStorage.setItem('access_token',result.access_token);
     this.router.navigate(['/']);
+  }
+
+  getToken() {
+    return localStorage.getItem('access_token');
+  }
+
+  setLogin(user:User){
+    localStorage.setItem('login',user.login);
+  }
+
+  getLogin(){
+    return localStorage.getItem('login');
   }
 
   userLogged(): Boolean{

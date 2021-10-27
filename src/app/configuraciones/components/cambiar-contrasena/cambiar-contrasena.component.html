@@ -1,10 +1,7 @@
 <div id="panelExterno">
  <form [formGroup]="formCambiar" (ngSubmit)="enviarRegistro($event)">
     <div id="panelInterno">
-       <div class="column">
-             <label>Login</label>
-             <input id="login" type="text"  pInputText [pTooltip]="formError.login" tooltipEvent="focus" formControlName="login">
-        </div>
+        <hr>
         <div class="column">
             <label>Password Actual</label>
             <input id="password" type="password" pInputText [pTooltip]="formError.password" tooltipEvent="focus" formControlName="password">
@@ -16,7 +13,7 @@
         <div id="divBtnCambiar">
             <p-button id="btnCambiar" type="submit" label="Cambiar"></p-button>
         </div>
-        
+        <hr>
     </div>
   </form>
 </div>

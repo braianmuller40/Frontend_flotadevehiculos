@@ -18,14 +18,24 @@ export class ConfiguracionesComponent implements OnInit {
   ngOnInit(): void {
     this.items = [
       {
-        label: 'Cambiar contraseña',
-        icon: 'fas fa-key',
-        command:() => this.displayPage("cambiar-contrasena")
+        label: 'Cuenta',
+        items:[
+          {
+            label: 'Cambiar contraseña',
+            icon: 'fas fa-key',
+            command:() => this.displayPage("cambiar-contrasena")
+          },
+        ] 
       },
       {
-        label: 'Tipos de Servicio',
-        icon: 'fas fa-wrench',
-        command:() => this.displayPage("tipo-servicio")
+        label:'Servicio',
+        items:[
+          {
+            label: 'Tipos de Servicio',
+            icon: 'fas fa-wrench',
+            command:() => this.displayPage("tipo-servicio")
+          },
+        ]
       },
   ];
   }

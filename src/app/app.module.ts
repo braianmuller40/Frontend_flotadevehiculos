@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './modules/login/login.module';
 import { MenubarModule} from 'primeng/menubar';
@@ -21,6 +22,8 @@ import { TiposServicioComponent } from './configuraciones/components/tipos-servi
 import {InputTextModule} from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InterceptorService } from './shared/services/auth/token-interceptor/interceptor.service';
+
 
 
 @NgModule({
@@ -50,8 +53,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     TooltipModule,
     FormsModule,
     ReactiveFormsModule
+
   ],
-  providers: [AuthService],
+  providers: [AuthService,
+    {  provide: HTTP_INTERCEPTORS,
+       useClass: InterceptorService,
+       multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
