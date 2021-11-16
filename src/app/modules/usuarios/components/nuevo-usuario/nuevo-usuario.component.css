@@ -1,0 +1,61 @@
+#panelExterior{
+    width: 400px;
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+}
+#panelInterior{
+    height: 100%;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.column{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+input{
+    margin-top: 3px;
+}
+#panel1{
+    margin-right: 8px;
+}
+#panel2{
+    margin-left: 8px;
+}
+#divDescripcion{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#divDescripcion label{
+    margin-bottom: 3px;
+}
+textarea{
+    resize:none;
+}
+#divDisponibilidadUsuario{
+    margin-top: 10px;
+}
+#options{
+    margin-top: 40px;
+    margin-bottom: 5px;
+}
+#options button{
+    width: 110px;
+    height: 45px;
+}
+#btnVaciar{
+    margin-right: auto;
+}
+#btnGuardar{
+    margin-left: auto;
+}
+.margen{
+    margin-top: 6px;
+}

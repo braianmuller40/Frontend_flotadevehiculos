@@ -8,6 +8,7 @@
             </div>
             <hr>
             <div id="panelInterno">
+                <hr>
                 <label id="labelLogin">Login</label>
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
@@ -19,10 +20,10 @@
                 </div>
                 <button pButton id="btnEnter" label="Enter" (click)="login()"></button>
                 <label id="registro" (click)="displayRegistro=true">Registre-se</label>
-                <p-dialog [modal]="true" header="Registro" [(visible)]="displayRegistro">
-                    <app-register></app-register>
-                </p-dialog>
             </div>
         </p-card>  
     </div>
 </div>
+<p-dialog [modal]="true" header="Registro" [(visible)]="displayRegistro">
+    <app-register></app-register>
+</p-dialog>

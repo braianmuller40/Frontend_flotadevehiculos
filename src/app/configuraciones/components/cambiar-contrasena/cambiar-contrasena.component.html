@@ -11,7 +11,8 @@
             <input id="new_password" type="password" pInputText [pTooltip]="formError.new_password" tooltipEvent="focus" formControlName="new_password">
         </div>
         <div id="divBtnCambiar">
-            <p-button id="btnCambiar" type="submit" label="Cambiar"></p-button>
+            <button pButton id="btnVaciar" icon="fas fa-trash" label="Vaciar" (click)="vaciar()"></button>
+            <button pButton id="btnCambiar" type="submit" icon="fas fa-save" label="Guardar"></button>
         </div>
         <hr>
     </div>

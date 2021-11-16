@@ -1,0 +1,63 @@
+<div id="panelExterno" class="column">
+    <div id="inputButton" class="row">
+        <span class="p-input-icon-right">
+            <i *ngIf="inputBusq !== ''? true:false" class="fas fa-times-circle" (click)="limpiarInput()"></i>
+             <input *ngIf="!showItemTarget" pInputText id="inputB" [value]="inputBusq" type="text" placeholder="Buscar" (keyup)="keyUpBusqueda($event)" (keyup.enter)="getEnterTable()">
+             <div *ngIf="showItemTarget" id="itemTarget">{{itemTarget[campos[1]]}}</div>
+        </span>
+        <button *ngIf="modo=='filter'" pButton id="btnFilter" icon="fas fa-filter" (click)="op.toggle($event)" [style]="filterColor()"></button>
+    </div>
+    <div id="tableResults" *ngIf="modo == 'list' && show && campos && !showItemTarget">
+        <p-table id="tableItems" styleClass="p-datatable-sm" [value]="items" responsiveLayout="scroll">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th *ngFor="let campo of campos">
+                        {{campo.toString().replace("ano","Año").replace("_"," ") | titlecase}}
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                    <tr (click)="getClickTable(item)">
+                        <td *ngFor="let campo of campos">{{item[campo]}}</td>
+                    </tr>
+            </ng-template>
+        </p-table>
+    </div>
+</div>
+<p-overlayPanel #op>
+    <div id="btnLimpiar" class="row">
+        <button pButton icon="fas fa-eraser" label="Limpiar" (click)="limpiarFilter()"></button>
+    </div>
+    <div id="panelOver" *ngFor="let m of condiciones">
+        <div id="divSelects" class="column" *ngIf="spawnSelect(m) == true">
+            <div id="selects">
+                <label>{{spawnTitle(m).replace("ano","Año").replace("_"," ") | titlecase}}</label>
+                <select (change)="capSelect($event,m)">
+                    <option [selected]="filter[spawnTitle(m)].value == null? true:false" value="">
+                        ---------------------
+                    </option>
+                    <option *ngFor="let item of enumV" [value]="item" >{{item}}</option>
+                </select>
+            </div>
+        </div> 
+        <div id="divMinMax" class="column" *ngIf="spawnMinMax(m) == true">
+            <div id="minMax">
+                <label>{{spawnTitle(m).replace("ano","Año").replace("_"," ") | titlecase}}</label>
+                <input type="number" placeholder="Min" [value]="filter[spawnTitle(m)].min" pInputText (blur)="capMin($event,m)">
+                <label>-</label>
+                <input type="number" placeholder="Max" [value]="filter[spawnTitle(m)].max" pInputText (blur)="capMax($event,m)">
+            </div>
+        </div>
+        <div id="divFromTo" class="column" *ngIf="spawnFromTo(m) == true">
+            <div id="fromTo">
+                <label>{{spawnTitle(m).replace("ano","Año").replace("_"," ") | titlecase}}</label>
+                <input type="date"  pInputText [value]="filter[spawnTitle(m)].from" (blur)="capFrom($event,m)">
+                <label>-</label>
+                <input type="date" pInputText [value]="filter[spawnTitle(m)].to" (blur)="capTo($event,m)">
+            </div>
+        </div>
+    </div>
+    <div id="btnSearch" class="row">
+        <button pButton icon="fas fa-search" label="Buscar" (click)="buscar()"></button>
+    </div> 
+</p-overlayPanel>

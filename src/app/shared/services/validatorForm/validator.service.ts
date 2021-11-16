@@ -23,7 +23,7 @@ export class ValidatorService {
             msj=Object.values(i)[0];
           }
       } 
-       result.push({position:v, msj:msj});
+       result.push({key:v, msj:msj});
     }
     return result;
   }

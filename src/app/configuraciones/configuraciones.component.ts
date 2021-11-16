@@ -32,7 +32,7 @@ export class ConfiguracionesComponent implements OnInit {
         items:[
           {
             label: 'Tipos de Servicio',
-            icon: 'fas fa-wrench',
+            icon: 'fas fa-tools',
             command:() => this.displayPage("tipo-servicio")
           },
         ]
@@ -40,11 +40,13 @@ export class ConfiguracionesComponent implements OnInit {
   ];
   }
 
+
   displayPage(page:string){
     this.displayFalse();
     page=="cambiar-contrasena"? this.displayCambiarContrasena=true:
     page=="tipo-servicio"? this.displayTiposServicio=true:false;
   }
+
 
   displayFalse(){
     this.displayCambiarContrasena=false;

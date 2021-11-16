@@ -53,7 +53,7 @@ export class TiposServicioComponent implements OnInit {
   getFormErrors(){
     let result = this.validatoForm.getErrors(this.form);
     for(let v of result){
-      this.formError[v.position]=v.msj;
+      this.formError[v.key]=v.msj;
     }
   }
 
@@ -83,13 +83,6 @@ export class TiposServicioComponent implements OnInit {
     });
   }
 
-
-  capturarModificacion(event:any){
-    this.itemModificar = event.target.value;
-  }
-
-
-
   modificarTipo(){
     if(this.itemSelected){
       this.itemModificar = this.itemSelected.descripcion
@@ -98,6 +91,11 @@ export class TiposServicioComponent implements OnInit {
     }else{
       console.log("item no seleccionado");
     }
+  }
+
+
+  capturarModificacion(event:any){
+    this.itemModificar = event.target.value;
   }
 
 
@@ -117,7 +115,7 @@ export class TiposServicioComponent implements OnInit {
   
 
   eliminarTipo(){
-    this.tiposServ.delete(this.itemSelected.id).then(result => {this.getTipos()})
+    this.itemSelected? this.tiposServ.delete(this.itemSelected.id).then(result => {this.getTipos()}) : false;
   }
 
 }

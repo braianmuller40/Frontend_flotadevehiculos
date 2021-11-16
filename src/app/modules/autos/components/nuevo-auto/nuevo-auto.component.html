@@ -1,0 +1,52 @@
+<div id="panelExterior">
+    <form [formGroup]="form" (ngSubmit)="enviarRegistro($event)">
+        <div id="panelInterior" class="column">
+            <div class="row">
+                <div id="panel1"class="column" >
+                    <div class="p-field column margen">
+                        <label>Chapa</label>
+                        <input  id="chapa" type="text" pInputText [pTooltip]="formError.chapa" tooltipEvent="focus" formControlName="chapa"/>
+                    </div>
+                    <div class="p-field column margen">
+                        <label>Fabricante</label>
+                        <input  id="fabricante" type="text" pInputText [pTooltip]="formError.fabricante" tooltipEvent="focus" formControlName="fabricante"/>
+                    </div>
+                    <div class="p-field column margen">
+                        <label>Modelo</label>
+                        <input  id="modelo" type="text" pInputText [pTooltip]="formError.modelo" tooltipEvent="focus" formControlName="modelo"/>
+                    </div>
+                    <div class="p-field column margen">
+                        <label>Kilometraje</label>
+                        <input  id="kilometraje" type="number" pInputText [pTooltip]="formError.kilometraje" tooltipEvent="focus" formControlName="kilometraje"/>
+                    </div>
+                </div>
+                <div id="panel2" class="column">
+                    <div class="p-field column margen">
+                        <label>Chassis</label>
+                        <input  id="chassis" type="text" pInputText [pTooltip]="formError.chassis" tooltipEvent="focus" formControlName="chassis"/>
+                    </div>
+                    <div class="p-field column margen">
+                        <label>Año modelo</label>
+                        <input  id="ano_modelo" type="number" pInputText [pTooltip]="formError.ano_modelo" tooltipEvent="focus" formControlName="ano_modelo"/>
+                    </div>
+                    <div class="p-field column margen">
+                        <label>Año fabricacion</label>
+                        <input  id="ano_fabricacion" type="number" pInputText [pTooltip]="formError.ano_fabricacion" tooltipEvent="focus" formControlName="ano_fabricacion"/>
+                    </div>
+                </div> 
+            </div>
+            <div id="divDescripcion">
+                <label>Descripcion</label>
+                <textarea pInputTextarea id="descripcion" [pTooltip]="formError.descripcion" tooltipEvent="focus" formControlName="descripcion"></textarea>
+            </div>
+            <div id="divDisponibilidadAuto" class="p-field column">
+                <label>Dispoibilidad</label>
+                <p-selectButton [options]="getDisponibilidadAuto()" optionLabel="name" optionValue="value" formControlName="disponibilidad"></p-selectButton>
+            </div> 
+            <div id="options" class="row">
+                <button pButton id="btnVaciar" label="Vaciar" icon="fas fa-trash" (click)="vaciar()"></button>
+                <button pButton type="submit" id="btnGuardar" label="Guardar" icon="fas fa-save"></button>
+            </div>
+        </div>
+    </form>   
+</div>

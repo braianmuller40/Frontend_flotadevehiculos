@@ -32,24 +32,29 @@ export class LoginComponent implements OnInit {
     })
   }
 
-getValue(event:any){
-  return event.target.value;
-}
 
-focusPassword(){
-  document.getElementById('inputPassword')?.focus();
-}
-
-focusBtnEnter(){
-  document.getElementById('btnEnter')?.focus();
-  setTimeout(()=>this.login(),10);
-}
-
-isLogged(){
-  if(this.authServ.userLogged()){
-    this.router.navigate(['/']);
+  getValue(event:any){
+    return event.target.value;
   }
-}
 
+
+  focusPassword(){
+    document.getElementById('inputPassword')?.focus();
+  }
+
+
+  focusBtnEnter(){
+    document.getElementById('btnEnter')?.focus();
+    setTimeout(()=>this.login(),1);
+  }
+
+
+  isLogged(){
+    if(this.authServ.userLogged()){
+      this.router.navigate(['/']);
+    }
+  }
+
+  
 
 }

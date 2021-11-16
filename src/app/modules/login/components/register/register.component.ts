@@ -59,7 +59,7 @@ export class RegisterComponent implements OnInit {
   getFormErrors(){
     let result = this.validatoForm.getErrors(this.form);
     for(let v of result){
-      this.formError[v.position]=v.msj;
+      this.formError[v.key]=v.msj;
     }
   }
 
@@ -85,13 +85,16 @@ export class RegisterComponent implements OnInit {
 
 
   validarPasswordRepetido(){
-    if(this.form.get('password')?.value !== this.form.get('passwordRepetido')?.value 
-    && this.formError.passwordRepetido == ''){
+    if(this.form.get('password')?.value !== this.form.get('passwordRepetido')?.value){
       return true;
     }
     return false;
   }
 
+  vaciar(){
+    this.buildForm();
+  }
+  
 }
 
 

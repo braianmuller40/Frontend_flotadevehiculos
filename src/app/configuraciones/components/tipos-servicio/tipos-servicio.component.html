@@ -5,7 +5,7 @@
             <form [formGroup]="form" (ngSubmit)="enviarRegistro($event)">
                 <div id="divAgregar">
                     <input id="descripcion" type="text"  pInputText [pTooltip]="formError.descripcion" tooltipPosition="bottom" tooltipEvent="focus" formControlName="descripcion">
-                    <p-button id="btnAgregar" type="submit" label="Agregar"></p-button>
+                    <p-button id="btnAgregar" type="submit" icon="fas fa-plus" label="Agregar"></p-button>
                 </div>
             </form>
         </div>
@@ -17,13 +17,13 @@
                         <option value="">selecciones un item</option>
                         <option *ngFor="let item of listaTiposServicio" [value]="item.id" >{{item.descripcion}}</option>
                     </select>
-                    <p-button id="btnModificar" label="Modificar" (click)="modificarTipo()"></p-button>
-                    <p-button id="btnEliminar" label="Eliminar" (click)="eliminarTipo()"></p-button>
+                    <p-button id="btnModificar" icon="fas fa-wrench" label="Modificar" (click)="modificarTipo()"></p-button>
+                    <p-button id="btnEliminar" icon="fas fa-trash" label="Eliminar" (click)="eliminarTipo()"></p-button>
                 </div>
                 <div *ngIf="displayGuardCancel" id="divGuardCancel">
                     <input id="inputGuardar" type="text"  pInputText [value]="itemModificar" (blur)="capturarModificacion($event)">
-                    <p-button id="btnGuardar" label="Guardar" (click)="guardarModificacion()"></p-button>
-                    <p-button id="btnCancelar" label="Cancelar" (click)="cancelarModificacion()"></p-button>
+                    <p-button id="btnGuardar" icon="fas fa-save" label="Guardar" (click)="guardarModificacion()"></p-button>
+                    <p-button id="btnCancelar" icon="fas fa-times" label="Cancelar" (click)="cancelarModificacion()"></p-button>
                 </div>  
             </div> 
         </div>

@@ -23,6 +23,9 @@ import {InputTextModule} from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InterceptorService } from './shared/services/auth/token-interceptor/interceptor.service';
+import { CommonModule } from '@angular/common';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+
 
 
 
@@ -32,6 +35,7 @@ import { InterceptorService } from './shared/services/auth/token-interceptor/int
     ConfiguracionesComponent,
     CambiarContrasenaComponent,
     TiposServicioComponent
+
   ],
   imports: [
     BrowserModule,
@@ -52,7 +56,9 @@ import { InterceptorService } from './shared/services/auth/token-interceptor/int
     ButtonModule,
     TooltipModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule,
+    OverlayPanelModule
 
   ],
   providers: [AuthService,

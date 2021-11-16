@@ -1,17 +1,14 @@
 <div id="panelExterno">
   <form [formGroup]="form" (ngSubmit)="enviarRegistro($event)">
     <div id="panelInterno">
-
         <div class="p-field column">
             <label>Nombre</label>
             <input  id="nombre" type="text" pInputText [pTooltip]="formError.nombre" tooltipEvent="focus" formControlName="nombre"/>
         </div>
-
         <div class="p-field column">
             <label>Username</label>
             <input  id="login" type="text" pInputText [pTooltip]="formError.login" tooltipEvent="focus" formControlName="login"/>
         </div>
-
         <div id="divPasswords" class="row">
              <div id="divPass" class="p-field column">
                 <label>Password</label>
@@ -22,15 +19,14 @@
                 <input  id="passwordRepetido" type="password" pInputText  [pTooltip]="formError.passwordRepetido" tooltipEvent="focus" formControlName="passwordRepetido"/>
             </div>
         </div>
-
+        <div id="divTipoUsuario" class="p-field column">
+            <label>Tipo de Usuario</label>
+            <p-selectButton [options]="getTiposUsuario()" optionLabel="name" optionValue="value" formControlName="tipo_usuario"></p-selectButton>
+        </div>
         <div id="options" class="row">
-            <div id="divTipoUsuario">
-                <label>Tipo de Usuario</label>
-                <p-selectButton [options]="getTiposUsuario()" optionLabel="name" optionValue="value" formControlName="tipo_usuario"></p-selectButton>
-            </div>
+            <button pButton id="btnVaciar" label="Vaciar" (click)="vaciar()"></button>
             <button pButton type="submit" id="btnEnviar" label="Enviar"></button>
         </div>
-
     </div>
   </form>
 </div>

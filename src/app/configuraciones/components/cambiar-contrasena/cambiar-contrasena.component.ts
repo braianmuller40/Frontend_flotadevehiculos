@@ -32,6 +32,7 @@ export class CambiarContrasenaComponent implements OnInit {
       new_password: new FormControl('', [Validators.required])
     });
   }
+  
 
   enviarRegistro(event:Event){
     event.preventDefault();
@@ -49,9 +50,10 @@ export class CambiarContrasenaComponent implements OnInit {
   getFormErrors(){
     let result = this.validatoForm.getErrors(this.formCambiar);
     for(let v of result){
-      this.formError[v.position]=v.msj;
+      this.formError[v.key]=v.msj;
     }
   }
+  
 
   focusValidation(){
     for(let t in this.formError){
@@ -62,5 +64,8 @@ export class CambiarContrasenaComponent implements OnInit {
     }
   }
 
+  vaciar(){
+    this.buildForm();
+  }
   
 }

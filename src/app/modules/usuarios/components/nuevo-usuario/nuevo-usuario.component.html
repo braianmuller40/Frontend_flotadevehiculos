@@ -1,0 +1,31 @@
+<div id="panelExterior">
+    <form [formGroup]="form" (ngSubmit)="enviarRegistro($event)">
+        <div id="panelInterior" class="column">
+            <div class="row">
+                <div id="panel1"class="column" >
+                    <div class="p-field column margen">
+                        <label>Nombre</label>
+                        <input  id="nombre" type="text" pInputText [pTooltip]="formError.nombre" tooltipEvent="focus" formControlName="nombre"/>
+                    </div>
+                    <div class="p-field column margen">
+                        <label>Login</label>
+                        <input  id="login" type="text" pInputText [pTooltip]="formError.login" tooltipEvent="focus" formControlName="login"/>
+                    </div>
+                </div>
+            </div>
+            <div id="divDescripcion">
+                <label>Descripcion</label>
+                <textarea pInputTextarea id="descripcion" [pTooltip]="formError.descripcion" tooltipEvent="focus" formControlName="descripcion"></textarea>
+            </div>
+            <div id="divDisponibilidadUsuario" class="p-field column">
+                <label>Tipo de Usuario</label>
+                <p-selectButton [options]="getTipoUsuario()" optionLabel="name" optionValue="value" formControlName="tipo_usuario"></p-selectButton>
+            </div> 
+            <div id="options" class="row">
+                <button pButton id="btnVaciar" label="Vaciar" icon="fas fa-trash" (click)="vaciar()"></button>
+                <button pButton type="submit" id="btnGuardar" label="Guardar" icon="fas fa-save"></button>
+            </div>
+        </div>
+    </form>   
+</div>
+

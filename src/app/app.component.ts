@@ -14,8 +14,7 @@ export class AppComponent implements OnInit{
 
   items: MenuItem[]=[];
 
-  displayMenu:boolean = false;
-  displayConfiguraciones:boolean = false
+  displayConfiguraciones:boolean = false;
 
   constructor(private authServ:AuthService,private router:Router) {
   }
@@ -35,7 +34,7 @@ export class AppComponent implements OnInit{
       },
       {
           label: 'Servicios',
-          icon: 'fas fa-car-crash',
+          icon: 'fas fa-tasks',
           routerLink:['/servicios']
       },
       {
@@ -54,21 +53,29 @@ export class AppComponent implements OnInit{
         style: {'margin-left': 'auto','margin-right':'4%'},
         command:() =>this.displayConfig()
       },
+      {
+        label: 'Salir',
+        icon: 'pi pi-power-off',
+        command:() =>this.salir()
+      },
   ];
   }
+
 
   isLogged(){
     return this.authServ.userLogged();
   }
+
   
   displayConfig(){
     this.displayConfiguraciones=true;
     this.conf.displayFalse();
   }
 
+
   salir(){
-    this.displayMenu=false;
     this.authServ.logout();
   }
+
 
 }
