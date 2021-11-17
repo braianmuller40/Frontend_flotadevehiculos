@@ -7,7 +7,7 @@
                 </div>
                 <div id="divAdd" class="row">
                     <button pButton icon="fas fa-plus" (click)="displayState('nuevo',{})"></button>
-                    <div id="divBusqueda"><app-busqueda modo="filter" [condiciones]="condicionesBusqueda" (resultado)="resultadoBusqueda($event)"></app-busqueda></div>
+                    <div id="divBusqueda"><app-busqueda [condiciones]="condicionesBusqueda" (resultado)="resultadoBusqueda($event)"></app-busqueda></div>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -17,7 +17,7 @@
                      <th>Login</th>
                      <th>Descripcion</th>
                      <th>Tipo Usuario</th>
-                     <!--<th><i class="far fa-plus-square"></i> Info</th>-->
+                     <th><i class="far fa-plus-square"></i> Info</th>
                      <th><i class="fas fa-wrench"></i>  Opciones</th>
                  </tr>
             </ng-template>
@@ -28,10 +28,10 @@
                     <td>{{item.login}}</td>
                     <td>{{item.descripcion}}</td>
                     <td>{{item.tipo_usuario}}</td>
-                   <!--<td><button pButton icon="fas fa-info" (click)="displayInfo=true"></button></td>--> 
+                    <td><button pButton icon="fas fa-info" (click)="displayInfo=true"></button></td>
                     <td>
                         <div id="options">
-                            <button pButton icon="fas fa-pen" (click)="displayState('editar',item)"></button>
+                            <button pButton icon="fas fa-edit" (click)="displayState('editar',item)"></button>
                             <button pButton icon="fas fa-trash" (click)="eliminarItem(item)"></button>
                         </div>
                     </td>
