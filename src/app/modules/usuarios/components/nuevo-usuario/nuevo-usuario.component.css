@@ -30,7 +30,7 @@ input{
 #divDescripcion{
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
+    margin-top: 9px;
     margin-bottom: 10px;
 }
 #divDescripcion label{
