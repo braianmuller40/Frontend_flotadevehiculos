@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TipoUsuario } from 'src/app/shared/enums/tipos-usuario.enum';
 import { Usuario } from 'src/app/shared/models/usuario.model';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { UsuariosService } from 'src/app/shared/services/usuarios/usuarios.service';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 
@@ -11,7 +12,7 @@ import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.
 })
 export class UsuariosComponent implements OnInit {
   @ViewChild(NuevoUsuarioComponent) user!:NuevoUsuarioComponent;
-
+  interval:any;
   listaUsuarios!:Usuario[];
   usuario!:Usuario;
   titleModal!:string;
@@ -37,11 +38,12 @@ export class UsuariosComponent implements OnInit {
 
 
   getUsuarios(skip:number,take:number,event:any){
-      this.usuariosServ.getPerFilter({skip:skip, take:take, obj:JSON.stringify(event)}).then(result => {this.listaUsuarios = result,this.countRep()});
+      this.usuariosServ.getPerFilter({skip:skip, take:take, obj:JSON.stringify(event)}).then(result => {this.listaUsuarios = result});
+      this.countRep(event);
   }
 
-  countRep(){
-    this.usuariosServ.countRepository().then(result=> {this.totalRecords=result});
+  countRep(event:any){
+    this.usuariosServ.countRepository({obj:JSON.stringify(event)}).then(result=> {this.totalRecords=result});
   }
 
   onPageChange(event:any){
@@ -65,7 +67,7 @@ export class UsuariosComponent implements OnInit {
 
   resultadoBusqueda(event:any){
     this.filter=event;
-    this.getUsuarios(this.skip,this.take,this.filter);
+    this.getUsuarios(0,this.take,this.filter);
   }
 
 }

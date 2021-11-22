@@ -42,11 +42,12 @@ export class AutosComponent implements OnInit {
 
 
   getAutos(skip:number,take:number,event:any){
-      this.autosServ.getPerFilter({skip:skip, take:take, obj:JSON.stringify(event)}).then(result => {this.listaAutos = result,this.countRep()});
+      this.autosServ.getPerFilter({skip:skip, take:take, obj:JSON.stringify(event)}).then(result => {this.listaAutos = result});
+      this.countRep(event);
   }
 
-  countRep(){
-    this.autosServ.countRepository().then(result=> {this.totalRecords=result});
+  countRep(event:any){
+     this.autosServ.countRepository({obj:JSON.stringify(event)}).then(result=> {this.totalRecords=result});
   }
 
   onPageChange(event:any){

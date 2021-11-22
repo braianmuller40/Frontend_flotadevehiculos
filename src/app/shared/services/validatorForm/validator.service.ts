@@ -10,6 +10,7 @@ export class ValidatorService {
   mensajes=[
     {required:"Es requerido"},
     {maxlength:"Exediste la cantidad de caracteres"},
+    {existe:"Ya existe en el sistema"},
   ];
 
   constructor() { }

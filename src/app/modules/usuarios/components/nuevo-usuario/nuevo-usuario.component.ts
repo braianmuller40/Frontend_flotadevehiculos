@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { TipoUsuario } from 'src/app/shared/enums/tipos-usuario.enum';
 import { Usuario } from 'src/app/shared/models/usuario.model';
 import { UsuariosService } from 'src/app/shared/services/usuarios/usuarios.service';
@@ -21,6 +21,7 @@ export class NuevoUsuarioComponent implements OnInit {
     nombre:'',
     login:'',
     descripcion:'',
+    existe:''
   }
 
 
@@ -42,7 +43,7 @@ export class NuevoUsuarioComponent implements OnInit {
   private buildForm() {
     this.form = new FormGroup({
       nombre: new FormControl(this.usuarioNuevo.nombre, [Validators.required,Validators.maxLength(10)]),
-      login: new FormControl(this.usuarioNuevo.login, [Validators.required,Validators.maxLength(10)]),
+      login: new FormControl(this.usuarioNuevo.login, [Validators.required,Validators.maxLength(10)],[this.existe.bind(this)]),
       descripcion: new FormControl(this.usuarioNuevo.descripcion, [Validators.required,Validators.maxLength(10)]),
       tipo_usuario: new FormControl(this.usuarioNuevo.tipo_usuario? this.usuarioNuevo.tipo_usuario:this.getTipoUsuario()[0].value,[]),
     });
@@ -98,6 +99,17 @@ export class NuevoUsuarioComponent implements OnInit {
         dispOptions.push({name: T, value: T});
       }
     return dispOptions;
+  }
+
+  
+  existe(control: AbstractControl) {
+    return this.usuarioServ.getUserByLogin(control.value).then((value) => {
+      if(value!=null){
+        return {'existe':true};
+      }else{
+        return null;
+      }
+     });
   }
 
 

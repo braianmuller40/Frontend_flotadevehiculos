@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../../models/user.model';
 import { Router } from '@angular/router';
 import { Utils } from '../../utils/utils';
+import { UsuariosService } from '../usuarios/usuarios.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,15 @@ import { Utils } from '../../utils/utils';
 export class AuthService {
 
   user!:User;
+  userLogg!:any;
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(private httpClient: HttpClient, private router: Router, private usuarioServ:UsuariosService) {}
 
   api = Utils.ip();
 
   async login(user:User){
     this.user = user;
-   return await this.httpClient.post(this.api+"/login" , user).toPromise().then(result => this.storage(result));
+   return await this.httpClient.post(this.api+"/login" , user).toPromise().then(result => {this.storage(result)});
   }
 
   storage(result:any){
@@ -44,7 +46,6 @@ export class AuthService {
 
   async logout(){
     localStorage.removeItem('access_token');
-    window.location.reload();
     this.router.navigate(['/login']);
   }
 

@@ -21,8 +21,8 @@ export class GenericService<Model>{
     return await this._httpClient.get(this.url+"/"+this.dir+"/"+id).toPromise();
   }
 
-  async countRepository(){
-    return await this._httpClient.get<number>(this.url+"/"+this.dir+"/count").toPromise();
+  async countRepository(params?:Params){
+    return await this._httpClient.get<number>(this.url+"/"+this.dir+"/count", {params: params}).toPromise();
   }
 
   async post(obj:Model){

@@ -18,7 +18,8 @@ export class RegisterComponent implements OnInit {
     nombre:'',
     login:'',
     password:'',
-    passwordRepetido:''
+    passwordRepetido:'',
+    existe:'',
   }
 
 
@@ -34,7 +35,7 @@ export class RegisterComponent implements OnInit {
   private buildForm() {
     this.form = new FormGroup({
       nombre: new FormControl('', [Validators.required,Validators.maxLength(10)]),
-      login: new FormControl('', [Validators.required,Validators.maxLength(10)]),
+      login: new FormControl('', [Validators.required,Validators.maxLength(10)],[this.existe.bind(this)]),
       password: new FormControl('', [Validators.required]),
       passwordRepetido: new FormControl('', [Validators.required]),
       tipo_usuario: new FormControl(this.getTiposUsuario()[0].value,[]),
@@ -94,8 +95,18 @@ export class RegisterComponent implements OnInit {
   vaciar(){
     this.buildForm();
   }
+
+
+  existe(control: AbstractControl) {
+    return this.userService.getUserByLogin(control.value).then((value) => {
+      if(value!=null){
+        return {'existe':true};
+      }else{
+        return null;
+      }
+     });
   
 }
 
 
-
+}
