@@ -3,6 +3,7 @@ import { MenuItem } from 'primeng/api';
 import { DisponibilidadAuto } from 'src/app/shared/enums/disponibilidad-auto.enum';
 import { Auto } from 'src/app/shared/models/auto.model';
 import { AutosService } from 'src/app/shared/services/autos/autos.service';
+import { InfoAutoComponent } from './components/info-auto/info-auto.component';
 import { NuevoAutoComponent } from './components/nuevo-auto/nuevo-auto.component';
 
 @Component({
@@ -12,6 +13,7 @@ import { NuevoAutoComponent } from './components/nuevo-auto/nuevo-auto.component
 })
 export class AutosComponent implements OnInit {
   @ViewChild(NuevoAutoComponent) auto!:NuevoAutoComponent;
+  @ViewChild('aut') aut!:InfoAutoComponent;
 
   listaAutos!:Auto[];
   Auto!:Auto;
@@ -23,18 +25,17 @@ export class AutosComponent implements OnInit {
   displayInfo:boolean=false;
   displayNuevoAuto:boolean=false;
   condicionesBusqueda=[
-    {disponibilidad:"select"},
+    {disponibilidad:"select", enum:Object.values(DisponibilidadAuto)},
     {kilometraje:"number"},
     {ano_modelo:"number"},
     {ano_fabricacion:"number"},
     {fecha_creacion:"date"},
     {fecha_alteracion:"date"},
-    {strings:{descripcion:"string", fabricante:"string", chapa:"string", modelo:"string"}},
-    {enum:Object.values(DisponibilidadAuto)},
+    {writes:["descripcion","fabricante","chapa","modelo"]},
     {campos:["id","chapa","modelo","disponibilidad"]}
   ];
 
-  constructor(public autosServ:AutosService) { }
+  constructor(private autosServ:AutosService) { }
 
   ngOnInit(): void {
     this.getAutos(this.skip,this.take,this.filter);
@@ -72,6 +73,11 @@ export class AutosComponent implements OnInit {
   resultadoBusqueda(event:any){
     this.filter=event;
     this.getAutos(this.skip,this.take,this.filter);
+  }
+
+  displayInf(item:any){
+    this.aut.setValues(item);
+    this.displayInfo=true;
   }
 
   itemTarget(event:any){

@@ -43,6 +43,6 @@
         </div>
     </div>
 </div>
-<p-dialog [header]="titleModal" [(visible)]="displayNuevoUsuario">
+<p-dialog [header]="titleModal" [modal]="true" [(visible)]="displayNuevoUsuario">
     <app-nuevo-usuario #user (reloadPage)="reloadPage()"></app-nuevo-usuario>
 </p-dialog>

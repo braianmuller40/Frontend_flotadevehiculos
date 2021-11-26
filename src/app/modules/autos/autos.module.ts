@@ -15,10 +15,11 @@ import { InputNumberModule} from 'primeng/inputnumber';
 import { InputTextareaModule} from 'primeng/inputtextarea';
 import { OverlayPanelModule} from 'primeng/overlaypanel';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { InfoAutoComponent } from './components/info-auto/info-auto.component';
 
 
 @NgModule({
-  declarations: [AutosComponent, NuevoAutoComponent],
+  declarations: [AutosComponent, NuevoAutoComponent, InfoAutoComponent],
   imports: [
     CommonModule,
     TableModule,
@@ -35,7 +36,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     InputNumberModule,
     OverlayPanelModule,
     SharedModule
-    
   ]
 })
 export class AutosModule { }

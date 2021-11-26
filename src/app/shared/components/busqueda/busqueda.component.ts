@@ -1,11 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Utils } from '../../utils/utils';
 
 @Component({
   selector: 'app-busqueda',
   templateUrl: './busqueda.component.html',
   styleUrls: ['./busqueda.component.css']
 })
-export class BusquedaComponent implements OnInit {
+export class BusquedaComponent implements OnInit{
   @Input() condiciones!:Array<{[key:string]:any}>;
   @Input() serv:any;
   @Input() modo!:string;
@@ -14,15 +15,18 @@ export class BusquedaComponent implements OnInit {
   
     filter:{[key:string]:any}={};
     colorState:{[key:string]:any}={};
-    enumV=new Array();
+    enum:{[key:string]:any}={};
     items = [];
+    editTarget:any;
+    inputB:string="";
     campos = new Array();
     inputBusq:string="";
     skip:number=0;
     take:number=10;
+    formError:{[key:string]:any}={
+      inputB:'',
+    }
     show:boolean=false;
-    itemTarget:any;
-    showItemTarget:boolean=false;
 
     constructor() {
   
@@ -31,54 +35,53 @@ export class BusquedaComponent implements OnInit {
     ngOnInit(): void {
       this.createStruct();
     }
+
+
   
     createStruct(){
       for(let i of this.condiciones){
         let key = Object.keys(i)[0];
-        if(key == "strings"){
-          let v:{[key:string]:any}=i[key]; 
-          this.filter[key]=v;
+        if(key == "writes"){  // campos que se permitira buscar el la busca escrita(debe ser string);
+           this.filter[key] = i[key]; 
         }
-        if(key == "enum"){
-          this.enumV = i[key];
-        }
-        if(key == "campos"){
+        if(key == "campos"){    // Son los campos referente a la lista que desplegara en modo "list"
           this.campos = i[key];
         }
         if(i[key] == "number"){
-          this.filter[key] = {min:null, max:null};
+          this.filter[key] = {min:null, max:null}; // tipo de dato que desbloqueara el max-min
         }
         if(i[key] == "date"){
-          this.filter[key] = {from:null, to:null};
+          this.filter[key] = {from:null, to:null}; // tipo de dato que desbloqueara el from-to 
         }
         if(i[key] == "select"){
-          this.filter[key] = {value:null};
+          this.filter[key] = {value:null}; // tipo de dato que desbloqueara el select
+          this.enum[key] = i.enum? i.enum:[]; // agarra el enum pasado adjunto en el  objeto
         }
       }
-      this.filter["write"] = {writed:""};
+      this.filter["write"] = {writed:""};    // el contenido escrito en la busqueda
     }
   
   ////////////////Funciones Spawn//////////////////
     spawnMinMax(item:Object){
-      let value = Object.values(item).toString();
+      let value = Object.values(item)[0].toString();
       if(value == "number"){ return true; }
       return false;
     }
   
     spawnFromTo(item:Object){
-      let value = Object.values(item).toString();
+      let value = Object.values(item)[0].toString();
       if(value == "date"){ return true; }
       return false;
     }
   
     spawnSelect(item:Object){
-      let value = Object.values(item).toString();
+      let value = Object.values(item)[0].toString();
       if(value == "select"){ return true; }
       return false;
     }
   
     spawnTitle(item:Object){
-      return Object.keys(item).toString();
+      return Object.keys(item)[0].toString();
     }
   /////////////////////Funciones de captura/////////////////////////
     keyUpBusqueda(event:any){
@@ -131,33 +134,49 @@ export class BusquedaComponent implements OnInit {
       this.inputBusq="";
       this.filter["write"].writed=this.inputBusq;
       this.show = this.inputBusq !== ""? true:false;
-      this.showItemTarget=false;
+      this.editTarget={};
+      this.itemTar.emit({});
       this.resultado.emit(this.filter);
     }
 
     limpiarFilter(){
       for(let i in this.filter){
-        i == "strings" ? false : i == "write" ? false: this.filter[i].value ? this.filter[i].value = null:
+        i == "writes" ? false : i == "write" ? false: this.filter[i].value ? this.filter[i].value = null:
         this.filter[i].min ? this.filter[i].min = null:this.filter[i].max ? this.filter[i].max = null:
         this.filter[i].from ? this.filter[i].from = null:this.filter[i].to ? this.filter[i].to = null:false;
       }
       this.limpiarColorFilter();
       this.resultado.emit(this.filter);
     }
+
+    isEmpty(item:any){
+      let sw:boolean = true;
+      for(let i in item){
+        if(item[i]){sw = false;}
+      }
+      return sw;
+    }
 ////////////////////////////////////////////////////////////////////////////
-   
+    showMsgError(msg:string,id:string){
+        this.formError.inputB=msg;
+        this.inputB=id;
+        document.getElementById(this.inputB)?.focus();
+    }
+
     getClickTable(item:any){
-      this.itemTarget = item;
-      this.showItemTarget=true;
-      this.itemTarget.emit(this.itemTarget);
+      this.editTarget = item;
+      this.itemTar.emit(this.editTarget);
     }
 
     getEnterTable(){
       if(this.items.length == 1){
-        this.itemTarget= this.items[0];
-        this.showItemTarget=true;
-        this.itemTar.emit(this.itemTarget);
+        this.editTarget= this.items[0];
+        this.itemTar.emit(this.editTarget);
       }
+    }
+
+    setEditTarget(item:any){
+      this.editTarget=item;
     }
 
     buscar(){

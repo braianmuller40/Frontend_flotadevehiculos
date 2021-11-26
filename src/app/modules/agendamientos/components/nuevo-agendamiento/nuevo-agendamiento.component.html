@@ -1,0 +1,55 @@
+<div id="panelExterior">
+    <form [formGroup]="form" (ngSubmit)="enviarRegistro($event)">
+        <div id="panelInterior" class="column">
+            <div class="row">
+                <div id="panel1"class="column" >
+                    <div id="divTiposAgendamientos" class="p-field column">
+                        <label>Tipo Agendamiento</label>
+                        <p-selectButton [options]="getTipoAgendamiento()" optionLabel="name" optionValue="value" formControlName="tipo_agendamiento"></p-selectButton>
+                    </div>
+                </div>
+                <div id="panel2" class="column">
+                    <div id="divInterior">
+                         <div *ngIf="this.form.value.tipo_agendamiento == 'FIJO'" class="p-field column margen">
+                            <label>Fecha Objetivo</label>
+                            <input id="inputFechaObjetivo" type="date" [pTooltip]="formError.fechaObj" tooltipEvent="focus" formControlName="fecha_objetivo">
+                         </div>
+                         <div *ngIf="this.form.value.tipo_agendamiento == 'PERIODICO'" id="divTipoPeriodo" class="p-field column">
+                             <label>Tipo Periodo</label>
+                            <p-selectButton [options]="getTipoPeriodo()" optionLabel="name" optionValue="value" formControlName="tipo_periodo"></p-selectButton>
+                        </div> 
+                        <div *ngIf="this.form.value.tipo_agendamiento == 'PERIODICO'" class="p-field column margen">
+                            <label>Periodo</label>
+                            <input  id="periodo" type="number" pInputText [pTooltip]="formError.period" tooltipEvent="focus" formControlName="periodo"/>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div id="busquedas" class="row">
+                <div class="p-field column divBusquedas">
+                    <label>Usuario</label>
+                    <app-busqueda #usuari modo="list" [serv]="usuariosServ" [condiciones]="condicionesBusquedaUsuarios" (itemTar)="itemTargetUsuario($event)"></app-busqueda>
+                </div>
+                <div class="p-field column divBusquedas">
+                    <label>Auto</label>
+                    <app-busqueda #aut modo="list" [serv]="autosServ" [condiciones]="condicionesBusquedaAutos" (itemTar)="itemTargetAuto($event)"></app-busqueda>
+                </div>
+                <div class="p-field column divBusquedas">
+                    <label>Tipo de Servicio</label>
+                    <select id="tipo_servicio" formControlName="tipo_servicio" [pTooltip]="formError.tipo_servicio" tooltipEvent="focus">
+                        <option [ngValue]="null">Seleccione</option>
+                        <option *ngFor="let item of listaTiposServicio" [ngValue]="item.id">{{item.descripcion}}</option>
+                    </select>
+                </div>
+            </div>
+            <div id="divDescripcion">
+                <label>Descripcion</label>
+                <textarea pInputTextarea id="descripcion" [pTooltip]="formError.descripcion" tooltipEvent="focus" formControlName="descripcion"></textarea>
+            </div>
+            <div id="options" class="row">
+                <button pButton id="btnVaciar" label="Vaciar" icon="fas fa-trash" (click)="vaciar()"></button>
+                <button pButton type="submit" id="btnGuardar" label="Guardar" icon="fas fa-save"></button>
+            </div>
+        </div>
+    </form>   
+</div>

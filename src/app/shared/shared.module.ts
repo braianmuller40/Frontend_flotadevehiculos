@@ -5,6 +5,7 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TableModule} from 'primeng/table';
+import { TooltipModule } from 'primeng/tooltip';
 
 
 
@@ -15,7 +16,8 @@ import { TableModule} from 'primeng/table';
     OverlayPanelModule,
     InputTextModule,
     ButtonModule,
-    TableModule
+    TableModule,
+    TooltipModule,
   ],
   exports:[BusquedaComponent],
 })

@@ -115,7 +115,9 @@ export class TiposServicioComponent implements OnInit {
   
 
   eliminarTipo(){
-    this.itemSelected? this.tiposServ.delete(this.itemSelected.id).then(result => {this.getTipos()}) : false;
+    this.itemSelected? this.tiposServ.delete(this.itemSelected.id)
+    .then(result => {this.getTipos()})
+    .catch(err => console.log("No se pudo eliminar 'puede que sea por que esta asignado'")) : false;
   }
 
 }

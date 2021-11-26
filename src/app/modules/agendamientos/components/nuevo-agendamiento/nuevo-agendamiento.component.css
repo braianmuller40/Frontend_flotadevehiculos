@@ -1,0 +1,87 @@
+#panelExterior{
+    width: 800px;
+    height: 410px;
+    display: flex;
+    flex-direction: column;
+}
+#panelInterior{
+    height: 100%;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.column{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+input{
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
+#panel1{
+    margin-right: 8px;
+}
+#panel2{
+    margin-left: 250px;
+}
+#divDescripcion{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#divDescripcion label{
+    margin-bottom: 3px;
+}
+textarea{
+    resize:none;
+}
+#inputFechaObjetivo{
+    width: 230px;
+    height: 40px;
+}
+#calend{
+  width: 250px;
+}
+#periodo{
+    width:200px;
+}
+#divTiposAgendamientos{
+    margin-left: 20px;
+}
+#divInterior{
+    width: 100%;
+    height: 150px;
+}
+#divTipoPeriodo{
+    margin-top: 20px;
+}
+.divBusquedas{
+    width: 240px;
+    margin-top: 30px;
+}
+#tipo_servicio{
+    width: 100%;
+    height: 100%;
+}
+#options{
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+#options button{
+    width: 110px;
+    height: 45px;
+}
+#btnVaciar{
+    margin-right: auto;
+}
+#btnGuardar{
+    margin-left: auto;
+}
+.margen{
+    margin-top: 10px;
+}

@@ -1,7 +1,6 @@
 import { GenericAtributes } from "../generic/models/generic-atributes.model";
 
 export class Auto extends GenericAtributes{
-    id!:number;
     chapa!:string;
     chassis!:string;
     fabricante!:string;

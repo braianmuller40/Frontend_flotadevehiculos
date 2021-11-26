@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TipoUsuario } from 'src/app/shared/enums/tipos-usuario.enum';
 import { Usuario } from 'src/app/shared/models/usuario.model';
-import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { UsuariosService } from 'src/app/shared/services/usuarios/usuarios.service';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
 
@@ -23,11 +22,11 @@ export class UsuariosComponent implements OnInit {
   displayInfo:boolean=false;
   displayNuevoUsuario:boolean=false;
   condicionesBusqueda=[
-      {tipo_usuario:"select"},
+      {tipo_usuario:"select", enum:Object.values(TipoUsuario)},
       {fecha_creacion:"date"},
       {fecha_alteracion:"date"},
-      {strings:{nombre:"string",login:"string",descripcion:"string"}},
-      {enum:Object.values(TipoUsuario)}
+      {writes:["nombre","login","descripcion"]},
+      
   ];
 
   constructor(private usuariosServ:UsuariosService) { }

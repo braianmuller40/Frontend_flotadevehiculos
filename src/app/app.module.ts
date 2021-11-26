@@ -46,7 +46,6 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     ButtonModule,
     LoginModule,
     AutosModule,
-    AgendamientosModule,
     ServiciosModule,
     HomeModule,
     UsuariosModule,
@@ -58,7 +57,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    AgendamientosModule
 
   ],
   providers: [AuthService,

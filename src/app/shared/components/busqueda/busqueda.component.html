@@ -1,13 +1,13 @@
 <div id="panelExterno" class="column">
     <div id="inputButton" class="row">
         <span class="p-input-icon-right">
-            <i *ngIf="inputBusq !== ''? true:false" class="fas fa-times-circle" (click)="limpiarInput()"></i>
-             <input *ngIf="!showItemTarget" pInputText id="inputB" [value]="inputBusq" type="text" placeholder="Buscar" (keyup)="keyUpBusqueda($event)" (keyup.enter)="getEnterTable()">
-             <div *ngIf="showItemTarget" id="itemTarget">{{itemTarget[campos[1]]}}</div>
+             <i *ngIf="inputBusq !== '' || !isEmpty(editTarget)? true:false" class="fas fa-times-circle" (click)="limpiarInput()"></i>
+             <input *ngIf="isEmpty(editTarget)" [id]="inputB" [value]="inputBusq" type="text" placeholder="Buscar" (keyup)="keyUpBusqueda($event)" (keyup.enter)="getEnterTable()" pInputText  [pTooltip]="formError.inputB" tooltipEvent="focus" autocomplete="off">
+             <div *ngIf="!isEmpty(editTarget)" id="itemTarget">{{editTarget[campos[1]]}}</div>
         </span>
-        <button *ngIf="modo=='filter'" pButton id="btnFilter" icon="fas fa-filter" (click)="op.toggle($event)" [style]="filterColor()"></button>
+        <button *ngIf="modo =='filter'" pButton id="btnFilter" icon="fas fa-filter" (click)="op.toggle($event)" [style]="filterColor()"></button>
     </div>
-    <div id="tableResults" *ngIf="modo == 'list' && show && campos && !showItemTarget">
+    <div id="tableResults" *ngIf="modo == 'list' && show && campos && isEmpty(editTarget)">
         <p-table id="tableItems" styleClass="p-datatable-sm" [value]="items" responsiveLayout="scroll">
             <ng-template pTemplate="header">
                 <tr>
@@ -28,32 +28,34 @@
     <div id="btnLimpiar" class="row">
         <button pButton icon="fas fa-eraser" label="Limpiar" (click)="limpiarFilter()"></button>
     </div>
-    <div id="panelOver" *ngFor="let m of condiciones">
-        <div id="divSelects" class="column" *ngIf="spawnSelect(m) == true">
-            <div id="selects">
-                <label>{{spawnTitle(m).replace("ano","Año").replace("_"," ") | titlecase}}</label>
-                <select (change)="capSelect($event,m)">
-                    <option [selected]="filter[spawnTitle(m)].value == null? true:false" value="">
-                        ---------------------
-                    </option>
-                    <option *ngFor="let item of enumV" [value]="item" >{{item}}</option>
-                </select>
+    <div *ngIf="modo == 'filter'">
+        <div id="panelOver" *ngFor="let m of condiciones">
+            <div id="divSelects" class="column" *ngIf="spawnSelect(m) == true">
+                <div id="selects">
+                    <label>{{spawnTitle(m).replace("ano","Año").replace("_"," ") | titlecase}}</label>
+                    <select (change)="capSelect($event,m)">
+                        <option [selected]="filter[spawnTitle(m)].value == null? true:false" value="">
+                            ---------------------
+                        </option>
+                        <option *ngFor="let item of enum[spawnTitle(m)]" [value]="item" >{{item}}</option>
+                    </select>
+                </div>
+            </div> 
+            <div id="divMinMax" class="column" *ngIf="spawnMinMax(m) == true">
+                <div id="minMax">
+                    <label>{{spawnTitle(m).replace("ano","Año").replace("_"," ") | titlecase}}</label>
+                    <input type="number" placeholder="Min" [value]="filter[spawnTitle(m)].min" pInputText (blur)="capMin($event,m)">
+                    <label>-</label>
+                    <input type="number" placeholder="Max" [value]="filter[spawnTitle(m)].max" pInputText (blur)="capMax($event,m)">
+                </div>
             </div>
-        </div> 
-        <div id="divMinMax" class="column" *ngIf="spawnMinMax(m) == true">
-            <div id="minMax">
-                <label>{{spawnTitle(m).replace("ano","Año").replace("_"," ") | titlecase}}</label>
-                <input type="number" placeholder="Min" [value]="filter[spawnTitle(m)].min" pInputText (blur)="capMin($event,m)">
-                <label>-</label>
-                <input type="number" placeholder="Max" [value]="filter[spawnTitle(m)].max" pInputText (blur)="capMax($event,m)">
-            </div>
-        </div>
-        <div id="divFromTo" class="column" *ngIf="spawnFromTo(m) == true">
-            <div id="fromTo">
-                <label>{{spawnTitle(m).replace("ano","Año").replace("_"," ") | titlecase}}</label>
-                <input type="date"  pInputText [value]="filter[spawnTitle(m)].from" (blur)="capFrom($event,m)">
-                <label>-</label>
-                <input type="date" pInputText [value]="filter[spawnTitle(m)].to" (blur)="capTo($event,m)">
+            <div id="divFromTo" class="column" *ngIf="spawnFromTo(m) == true">
+                <div id="fromTo">
+                    <label>{{spawnTitle(m).replace("ano","Año").replace("_"," ") | titlecase}}</label>
+                    <input type="date"  pInputText [value]="filter[spawnTitle(m)].from" (blur)="capFrom($event,m)">
+                    <label>-</label>
+                    <input type="date" pInputText [value]="filter[spawnTitle(m)].to" (blur)="capTo($event,m)">
+                </div>
             </div>
         </div>
     </div>

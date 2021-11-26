@@ -1,1 +1,64 @@
-<p>agendamientos works!</p>
+<div id="background">
+    <div id="divTableAgendamientos">
+         <p-table id="tableAgendamientos" [value]="listaAgendamientos" styleClass="p-datatable-striped" responsiveLayout="scroll">
+            <ng-template pTemplate="caption">
+                <div id="divTitle" class="p-d-flex p-ai-center p-jc-between">
+                    <label>Lista de Agendamientos</label>
+                </div>
+                <div id="divAdd" class="row">
+                    <button pButton icon="fas fa-plus" (click)="displayState('nuevo',{})"></button>
+                    <div id="divBusqueda"><app-busqueda modo="filter" [serv]="agendamientosServ" [condiciones]="condicionesBusqueda" (resultado)="resultadoBusqueda($event)"></app-busqueda></div>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                 <tr>
+                     <th>Id</th>
+                     <th>Tipo Agendamiento</th>
+                     <th>Descripcion Servicio</th>
+                     <th>Fecha Objetivo</th>
+                     <th><i class="fas fa-car"></i> Auto</th>
+                     <th><i class="fas fa-user"></i> Usuario</th>
+                     <th><i class="fas fa-info"></i> Info</th>
+                     <th><i class="fas fa-wrench"></i>  Opciones</th>
+                 </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{item.id}}</td>
+                    <td>{{item.tipo_agendamiento}}</td>
+                    <td>{{item.tipo_servicio.descripcion}}</td>
+                    <td>{{item.fecha_objetivo | date: 'dd/MM/yyyy'}}</td>
+                    <td><button pButton icon="fas fa-car" (click)="displayAut(item.auto)"></button></td>
+                    <td><button pButton icon="fas fa-user" (click)="displayUsuari(item.usuario)"></button></td>
+                    <td><button pButton icon="fas fa-info" (click)="displayInf(item)"></button></td>
+                    <td>
+                        <div id="options">
+                            <button pButton icon="fas fa-pen" (click)="displayState('editar',item)"></button>
+                            <button pButton icon="fas fa-trash" (click)="eliminarItem(item)"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <div id="paginator" class="p-col-10">
+            <p-paginator  [rows]="5" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
+        </div>
+    </div>
+</div>
+
+<p-dialog [header]="titleModal" [modal]="true" [(visible)]="displayNuevoAgendamiento">
+    <app-nuevo-agendamiento #agendamiento (reloadPage)="reloadPage()"></app-nuevo-agendamiento>
+</p-dialog>
+
+<p-dialog header="Mas Informacion" [modal]="true" [(visible)]="displayInfo">
+    <app-info-relation #inf [campos]="['fecha_creacion','fecha_alteracion','tipo_periodo','periodo']"></app-info-relation>
+</p-dialog>
+
+<p-dialog header="Auto" [modal]="true" [(visible)]="displayAuto">
+    <app-info-relation #aut [campos]="['chapa','modelo','fabricante','disponibilidad']"></app-info-relation>  
+</p-dialog>
+
+<p-dialog header="Usuario" [modal]="true" [(visible)]="displayUser">
+    <app-info-relation #usuari  [campos]="['nombre','login','tipo_usuario']" ></app-info-relation>
+</p-dialog>
+
