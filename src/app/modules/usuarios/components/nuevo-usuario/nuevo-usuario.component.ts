@@ -45,7 +45,7 @@ export class NuevoUsuarioComponent implements OnInit {
       nombre: new FormControl(this.usuarioNuevo.nombre, [Validators.required,Validators.maxLength(10)]),
       login: new FormControl(this.usuarioNuevo.login, [Validators.required,Validators.maxLength(10)],[this.existe.bind(this)]),
       descripcion: new FormControl(this.usuarioNuevo.descripcion, [Validators.required,Validators.maxLength(10)]),
-      tipo_usuario: new FormControl(this.usuarioNuevo.tipo_usuario? this.usuarioNuevo.tipo_usuario:this.getTipoUsuario()[0].value,[]),
+      tipo_usuario: new FormControl(this.usuarioNuevo.tipo_usuario? this.usuarioNuevo.tipo_usuario:'USUARIO',[]),
     });
     this.formErrorClean();
   }
@@ -55,11 +55,9 @@ export class NuevoUsuarioComponent implements OnInit {
      if(this.form.valid){
         let value = this.form.value;   
         if(this.state == 'nuevo'){
-          Object.assign(value,{fecha_creacion:new Date()});
           Object.assign(value,{password:value.login});
           this.usuarioServ.post(value).then(result =>{this.vaciar(),this.reloadPage.emit()});
         }else{
-          Object.assign(value,{fecha_alteracion:new Date()});
           this.usuarioServ.put(value,this.usuarioNuevo.id).then(result =>{this.reloadPage.emit()});
         }
      }else{
@@ -104,7 +102,7 @@ export class NuevoUsuarioComponent implements OnInit {
   
   existe(control: AbstractControl) {
     return this.usuarioServ.getUserByLogin(control.value).then((value) => {
-      if(value!=null){
+      if(value!=null && control.value !== this.usuarioNuevo.login ){
         return {'existe':true};
       }else{
         return null;

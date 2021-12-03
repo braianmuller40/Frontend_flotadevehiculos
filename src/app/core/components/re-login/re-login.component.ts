@@ -1,34 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
-import { MessageService } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-re-login',
+  templateUrl: './re-login.component.html',
+  styleUrls: ['./re-login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class ReLoginComponent implements OnInit {
 
   user:User = new User();
 
-  constructor(private authServ:AuthService,private messageService: MessageService,private router:Router) {
-    
-  }
+  constructor(private authServ:AuthService,private router:Router, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.isLogged();
     document.getElementById('inputUsername')?.focus();
   }
 
 
   login(){
     this.authServ.login(this.user)
-    .then(result => this.router.navigate(['/']))
+    .then(result => this.user = new User())
     .catch(error => {
       this.messageService.add({severity:'error', summary:'Error', detail:'Usuario o Contraseña incorrectos'});
-      this.user=new User;
+      this.user = new User();
     })
   }
 
@@ -47,14 +44,4 @@ export class LoginComponent implements OnInit {
     document.getElementById('btnEnter')?.focus();
     setTimeout(()=>this.login(),1);
   }
-
-
-  isLogged(){
-    if(this.authServ.userLogged()){
-      this.router.navigate(['/']);
-    }
-  }
-
-  
-
 }

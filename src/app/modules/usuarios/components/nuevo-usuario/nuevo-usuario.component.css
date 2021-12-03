@@ -1,6 +1,6 @@
 #panelExterior{
     width: 400px;
-    height: 398px;
+    height: auto;
     display: flex;
     flex-direction: column;
 }

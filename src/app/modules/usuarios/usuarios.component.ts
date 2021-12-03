@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { InfoComponent } from 'src/app/shared/components/info/info.component';
 import { TipoUsuario } from 'src/app/shared/enums/tipos-usuario.enum';
 import { Usuario } from 'src/app/shared/models/usuario.model';
 import { UsuariosService } from 'src/app/shared/services/usuarios/usuarios.service';
 import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.component';
+import { ConfirmationService} from 'primeng/api';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -11,6 +14,8 @@ import { NuevoUsuarioComponent } from './components/nuevo-usuario/nuevo-usuario.
 })
 export class UsuariosComponent implements OnInit {
   @ViewChild(NuevoUsuarioComponent) user!:NuevoUsuarioComponent;
+  @ViewChild('usuari') usuari!:InfoComponent;
+
   interval:any;
   listaUsuarios!:Usuario[];
   usuario!:Usuario;
@@ -29,10 +34,21 @@ export class UsuariosComponent implements OnInit {
       
   ];
 
-  constructor(private usuariosServ:UsuariosService) { }
+  constructor(private usuariosServ:UsuariosService,private confirmationService: ConfirmationService,private authServ:AuthService) { }
 
   ngOnInit(): void {
     this.getUsuarios(this.skip,this.take,this.filter);
+  }
+
+  confirmElim(item:Usuario) {
+    this.confirmationService.confirm({
+      message: 'Quieres proceder a eliminar '+item.nombre+'?',
+      header: 'Confirmacion',
+      icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.usuariosServ.delete(item.id).then(result =>{this.reloadPage()});
+        }
+    });
   }
 
 
@@ -43,6 +59,10 @@ export class UsuariosComponent implements OnInit {
 
   countRep(event:any){
     this.usuariosServ.countRepository({obj:JSON.stringify(event)}).then(result=> {this.totalRecords=result});
+  }
+
+  adminPermision(){
+    return this.authServ.admin;
   }
 
   onPageChange(event:any){
@@ -60,8 +80,9 @@ export class UsuariosComponent implements OnInit {
     this.getUsuarios(this.skip,this.take,this.filter);
   }
 
-  eliminarItem(item:Usuario){
-    this.usuariosServ.delete(item.id).then(result =>{this.reloadPage()});
+  displayInf(item:any){
+    this.usuari.setValues(item);
+    this.displayInfo=true;
   }
 
   resultadoBusqueda(event:any){

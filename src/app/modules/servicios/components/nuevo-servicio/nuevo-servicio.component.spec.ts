@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfoAutoComponent } from './info-auto.component';
+import { NuevoServicioComponent } from './nuevo-servicio.component';
 
-describe('InfoAutoComponent', () => {
-  let component: InfoAutoComponent;
-  let fixture: ComponentFixture<InfoAutoComponent>;
+describe('NuevoServicioComponent', () => {
+  let component: NuevoServicioComponent;
+  let fixture: ComponentFixture<NuevoServicioComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InfoAutoComponent ]
+      declarations: [ NuevoServicioComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InfoAutoComponent);
+    fixture = TestBed.createComponent(NuevoServicioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

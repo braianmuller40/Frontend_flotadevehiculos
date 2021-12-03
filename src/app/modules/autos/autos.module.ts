@@ -15,11 +15,12 @@ import { InputNumberModule} from 'primeng/inputnumber';
 import { InputTextareaModule} from 'primeng/inputtextarea';
 import { OverlayPanelModule} from 'primeng/overlaypanel';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { InfoAutoComponent } from './components/info-auto/info-auto.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 
 @NgModule({
-  declarations: [AutosComponent, NuevoAutoComponent, InfoAutoComponent],
+  declarations: [AutosComponent, NuevoAutoComponent],
   imports: [
     CommonModule,
     TableModule,
@@ -35,7 +36,9 @@ import { InfoAutoComponent } from './components/info-auto/info-auto.component';
     InputTextareaModule,
     InputNumberModule,
     OverlayPanelModule,
+    ConfirmDialogModule,
     SharedModule
-  ]
+  ],
+  providers: [ConfirmationService]
 })
 export class AutosModule { }

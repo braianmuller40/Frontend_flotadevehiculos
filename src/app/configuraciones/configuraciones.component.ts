@@ -1,18 +1,19 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
 import {MenuItem} from 'primeng/api';
+import { AuthService } from '../shared/services/auth/auth.service';
 
 @Component({
   selector: 'app-configuraciones',
   templateUrl: './configuraciones.component.html',
   styleUrls: ['./configuraciones.component.css']
 })
-export class ConfiguracionesComponent implements OnInit {
+export class ConfiguracionesComponent implements OnInit{
 
   items: MenuItem[]=[];
   displayCambiarContrasena:boolean=false;
   displayTiposServicio:boolean=false;
 
-  constructor() {
+  constructor(private authServ:AuthService) {
   }
 
   ngOnInit(): void {
@@ -21,6 +22,7 @@ export class ConfiguracionesComponent implements OnInit {
         label: 'Cuenta',
         items:[
           {
+            visible:true,
             label: 'Cambiar contraseña',
             icon: 'fas fa-key',
             command:() => this.displayPage("cambiar-contrasena")
@@ -31,6 +33,7 @@ export class ConfiguracionesComponent implements OnInit {
         label:'Servicio',
         items:[
           {
+            visible:false,
             label: 'Tipos de Servicio',
             icon: 'fas fa-tools',
             command:() => this.displayPage("tipo-servicio")
@@ -38,8 +41,17 @@ export class ConfiguracionesComponent implements OnInit {
         ]
       },
   ];
+  this.visible();
   }
 
+  
+  visible(){
+    for(let i of this.items){
+     i.items?i.items.forEach(element => {
+      element.label == 'Tipos de Servicio'? element.visible = this.authServ.admin:true;
+     }):false;
+    }
+  }
 
   displayPage(page:string){
     this.displayFalse();

@@ -7,7 +7,6 @@ import { MessageService } from 'primeng/api';
 import {ToastModule} from 'primeng/toast';
 import {DialogModule} from 'primeng/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RegisterComponent } from './components/register/register.component';
 import {SelectButtonModule} from 'primeng/selectbutton';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {PasswordModule} from 'primeng/password';
@@ -16,7 +15,7 @@ import {TooltipModule} from 'primeng/tooltip';
 
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
     ButtonModule,

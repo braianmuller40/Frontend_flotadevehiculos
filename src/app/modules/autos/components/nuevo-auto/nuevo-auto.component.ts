@@ -64,10 +64,8 @@ export class NuevoAutoComponent implements OnInit {
      if(this.form.valid){
         let value = this.form.value;   
         if(this.state == 'nuevo'){
-          Object.assign(value,{fecha_creacion:new Date()});
           this.autoServ.post(value).then(result =>{this.reloadPage.emit()});
         }else{
-          Object.assign(value,{fecha_alteracion:new Date()});
           this.autoServ.put(value,this.autoNuevo.id).then(result =>{this.reloadPage.emit()});
         }
      }else{

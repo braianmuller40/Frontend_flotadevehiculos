@@ -6,11 +6,19 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TableModule} from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
+import { InfoComponent } from './components/info/info.component';
+import { CardModule } from 'primeng/card';
+import { ToastModule } from 'primeng/toast';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DialogModule } from 'primeng/dialog';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PasswordModule } from 'primeng/password';
 
 
 
 @NgModule({
-  declarations: [ BusquedaComponent],
+  declarations: [ BusquedaComponent, InfoComponent],
   imports: [
     CommonModule,
     OverlayPanelModule,
@@ -18,7 +26,18 @@ import { TooltipModule } from 'primeng/tooltip';
     ButtonModule,
     TableModule,
     TooltipModule,
+    ButtonModule,
+    CardModule,
+    ToastModule,
+    BrowserAnimationsModule,
+    DialogModule,
+    SelectButtonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    PasswordModule,
+    InputTextModule,
+    TooltipModule
   ],
-  exports:[BusquedaComponent],
+  exports:[BusquedaComponent, InfoComponent],
 })
 export class SharedModule { }

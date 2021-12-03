@@ -44,6 +44,9 @@ export class BusquedaComponent implements OnInit{
         if(key == "writes"){  // campos que se permitira buscar el la busca escrita(debe ser string);
            this.filter[key] = i[key]; 
         }
+        if(key == "relations"){
+          this.filter[key] = i[key];
+        }
         if(key == "campos"){    // Son los campos referente a la lista que desplegara en modo "list"
           this.campos = i[key];
         }

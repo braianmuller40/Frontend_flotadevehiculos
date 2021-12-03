@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { InfoRelationComponent } from './info-relation.component';
+import { ReLoginComponent } from './re-login.component';
 
-describe('InfoRelationComponent', () => {
-  let component: InfoRelationComponent;
-  let fixture: ComponentFixture<InfoRelationComponent>;
+describe('ReLoginComponent', () => {
+  let component: ReLoginComponent;
+  let fixture: ComponentFixture<ReLoginComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ InfoRelationComponent ]
+      declarations: [ ReLoginComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(InfoRelationComponent);
+    fixture = TestBed.createComponent(ReLoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,7 +1,7 @@
 <div id="panelExterno">
  <form [formGroup]="formCambiar" (ngSubmit)="enviarRegistro($event)">
     <div id="panelInterno">
-        <hr>
+        <label id="title">Cambiar Contraseña</label>
         <div class="column">
             <label>Password Actual</label>
             <input id="password" type="password" pInputText [pTooltip]="formError.password" tooltipEvent="focus" formControlName="password">
@@ -14,7 +14,7 @@
             <button pButton id="btnVaciar" icon="fas fa-trash" label="Vaciar" (click)="vaciar()"></button>
             <button pButton id="btnCambiar" type="submit" icon="fas fa-save" label="Guardar"></button>
         </div>
-        <hr>
     </div>
   </form>
 </div>
+

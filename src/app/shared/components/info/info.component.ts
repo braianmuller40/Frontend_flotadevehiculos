@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Utils } from 'src/app/shared/utils/utils';
+import { Utils } from '../../utils/utils';
 
 @Component({
-  selector: 'app-info-auto',
-  templateUrl: './info-auto.component.html',
-  styleUrls: ['./info-auto.component.css']
+  selector: 'app-info',
+  templateUrl: './info.component.html',
+  styleUrls: ['./info.component.css']
 })
-export class InfoAutoComponent implements OnInit {
+export class InfoComponent implements OnInit {
   @Input() objeto:any;
   @Input() campos:any;
   
@@ -21,6 +21,10 @@ export class InfoAutoComponent implements OnInit {
 
     replaceData(item:any){
       return Utils.replaceData(item);
+    }
+
+    formatDate(item:any){
+      return Utils.formatDateItem(item);
     }
   
     forKeys(item:any){
@@ -42,6 +46,5 @@ export class InfoAutoComponent implements OnInit {
       }
       return result;
     }
-  
 
 }

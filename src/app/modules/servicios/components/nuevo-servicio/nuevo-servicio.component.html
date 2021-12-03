@@ -1,0 +1,73 @@
+<div id="panelExterior">
+    <form [formGroup]="form" (ngSubmit)="enviarRegistro($event)">
+        <div id="panelInterior">
+            <div class="row">
+                <div id="panel1"class="column" >
+                    <div id="divTiposAgendamientos" class="p-field column">
+                        <label>Estado</label>
+                        <p-selectButton [options]="getEstado()"  optionLabel="name" optionValue="value" formControlName="estado"></p-selectButton>
+                    </div>
+                    <div id="busquedas" class="column">
+                        <div class="p-field column divBusquedas">
+                            <label>Usuario</label>
+                            <app-busqueda #usuari modo="list" [serv]="usuariosServ" [condiciones]="condicionesBusquedaUsuarios" (itemTar)="itemTargetUsuario($event)"></app-busqueda>
+                        </div>
+                        <div class="p-field column divBusquedas">
+                            <label>Auto</label>
+                            <app-busqueda #aut modo="list" [serv]="autosServ" [condiciones]="condicionesBusquedaAutos" (itemTar)="itemTargetAuto($event)"></app-busqueda>
+                        </div>
+                    </div>
+                </div>
+                <div id="panel2">
+                    <div id="fechaIniFin" class="column">
+                        <div class="row">
+                            <div class="p-field column">
+                                <label>Fecha Inicio</label>
+                                <input id="fecha_inicio" type="date" [pTooltip]="formError.fecha_inicio" tooltipEvent="focus" formControlName="fecha_inicio">
+                            </div>
+                            <div class="p-field column">
+                                <label>KM Inicial</label>
+                                <input  id="km_inicial" type="number" pInputText [pTooltip]="formError.km_inicial" tooltipEvent="focus" formControlName="km_inicial"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div *ngIf="form.value.estado == 'FINALIZADO'" class="p-field column">
+                                <label>Fecha Fin</label>
+                                <input id="fecha_fin" type="date" [pTooltip]="formError.fecha_fin" tooltipEvent="focus" formControlName="fecha_fin">
+                            </div>
+                            <div *ngIf="form.value.estado == 'FINALIZADO'" class="p-field column">
+                                <label>KM Final</label>
+                                <input  id="km_final" type="number" pInputText [pTooltip]="formError.km_final" tooltipEvent="focus" formControlName="km_final"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divTiposValor" class="row">
+                        <div id="divValor">
+                           <div *ngIf="form.value.estado == 'FINALIZADO'" class="p-field column">
+                                <label>Valor</label>
+                                <input  id="valor" type="number" pInputText [pTooltip]="formError.period" tooltipEvent="focus" formControlName="periodo"/>
+                            </div> 
+                        </div>
+                        
+                        <div id="divSelect" class="p-field column divBusquedas">
+                            <label>Tipo de Servicio</label>
+                            <select id="tipo_servicio" formControlName="tipo_servicio" [pTooltip]="formError.tipo_servicio" tooltipEvent="focus">
+                                <option value="">selecciones un item</option>
+                                <option *ngFor="let item of listaTiposServicio" [ngValue]="item.id">{{item.descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div id="divDescripcion">
+                <label>Descripcion</label>
+                <textarea pInputTextarea id="descripcion" [pTooltip]="formError.descripcion" tooltipEvent="focus" formControlName="descripcion"></textarea>
+            </div>
+            <div id="options" class="row">
+                <button pButton id="btnVaciar" label="Vaciar" icon="fas fa-trash" (click)="vaciar()"></button>
+                <button pButton type="submit" id="btnGuardar" label="Guardar" icon="fas fa-save"></button>
+            </div>
+        </div>
+    </form>   
+</div>
+

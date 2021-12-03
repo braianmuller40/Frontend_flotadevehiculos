@@ -1,0 +1,99 @@
+#panelExterior{
+    width: 800px;
+    height: 410px;
+    display: flex;
+    flex-direction: column;
+}
+#panelInterior{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.row{
+    display: flex;
+    flex-direction: row;
+}
+.column{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+#panel1{
+    width: 300px;
+}
+#divTiposValor{
+    margin-top: 20px;
+    height: 80px;
+}
+#panel2{
+    width: 400px;
+    height: 250px;
+    margin-left: 80px;
+}
+#divValor{
+    width: 250px;
+}
+#divDescripcion{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#fechaIniFin{
+    height: 150px;
+}
+#divDescripcion label{
+    margin-bottom: 3px;
+}
+#tipo_servicio{
+    margin-top: 4px;
+    width: 210px;
+    height: 38px;
+}
+#fecha_inicio{
+    width: 150px;
+    margin-top: 4px;
+    height: 35px;
+}
+#fecha_fin{
+    width: 150px;
+    margin-top: 4px;
+    height: 35px;
+}
+#busquedas{
+    margin-top: 30px;
+}
+textarea{
+    resize:none;
+}
+.divBusquedas{
+    width: 240px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+#options{
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+#options button{
+    width: 110px;
+    height: 45px;
+}
+#btnVaciar{
+    margin-right: auto;
+}
+#btnGuardar{
+    margin-left: auto;
+}
+.margen{
+    margin-top: 10px;
+}
+input{
+    width: 190px;
+    height: 40px;
+    margin-top: 3px;
+    margin-bottom: 10px;
+}

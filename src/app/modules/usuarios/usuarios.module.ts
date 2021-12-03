@@ -15,6 +15,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ConfirmDialogModule} from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 
 
@@ -35,7 +37,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     InputTextareaModule,
     InputNumberModule,
     OverlayPanelModule,
+    ConfirmDialogModule,
     SharedModule
-  ]
+  ],
+  providers: [ConfirmationService]
 })
 export class UsuariosModule {}

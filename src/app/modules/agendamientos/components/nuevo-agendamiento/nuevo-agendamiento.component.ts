@@ -1,18 +1,17 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild, ViewChildren } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { BusquedaComponent } from 'src/app/shared/components/busqueda/busqueda.component';
-import { DisponibilidadAuto } from 'src/app/shared/enums/disponibilidad-auto.enum';
-import { TipoAgendamiento } from 'src/app/shared/enums/tipo-agendamiento.enum';
-import { TipoPeriodo } from 'src/app/shared/enums/tipo-periodo.enum';
-import { Agendamiento } from 'src/app/shared/models/agendamiento.model';
-import { Auto } from 'src/app/shared/models/auto.model';
-import { Usuario } from 'src/app/shared/models/usuario.model';
-import { AgendamientoService } from 'src/app/shared/services/agendamiento/agendamiento.service';
-import { AutosService } from 'src/app/shared/services/autos/autos.service';
-import { TiposServiciosService } from 'src/app/shared/services/tipos-servicios/tipos-servicios.service';
-import { UsuariosService } from 'src/app/shared/services/usuarios/usuarios.service';
-import { ValidatorService } from 'src/app/shared/services/validatorForm/validator.service';
-import { Utils } from 'src/app/shared/utils/utils';
+import { formatDate } from "@angular/common";
+import { Component, OnInit, ViewChild, Output, EventEmitter } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { BusquedaComponent } from "src/app/shared/components/busqueda/busqueda.component";
+import { TipoAgendamiento } from "src/app/shared/enums/tipo-agendamiento.enum";
+import { TipoPeriodo } from "src/app/shared/enums/tipo-periodo.enum";
+import { Agendamiento } from "src/app/shared/models/agendamiento.model";
+import { AgendamientoService } from "src/app/shared/services/agendamiento/agendamiento.service";
+import { AutosService } from "src/app/shared/services/autos/autos.service";
+import { TiposServiciosService } from "src/app/shared/services/tipos-servicios/tipos-servicios.service";
+import { UsuariosService } from "src/app/shared/services/usuarios/usuarios.service";
+import { ValidatorService } from "src/app/shared/services/validatorForm/validator.service";
+import { Utils } from "src/app/shared/utils/utils";
+
 
 @Component({
   selector: 'app-nuevo-agendamiento',
@@ -72,7 +71,7 @@ export class NuevoAgendamientoComponent implements OnInit {
     this.form = new FormGroup({
       descripcion: new FormControl(this.agendamientoNuevo.descripcion, [Validators.required]),
       tipo_agendamiento: new FormControl(this.agendamientoNuevo.tipo_agendamiento? this.agendamientoNuevo.tipo_agendamiento:this.getTipoAgendamiento()[0].value,[]),
-      fecha_objetivo: new FormControl(this.agendamientoNuevo.fecha_objetivo, []),
+      fecha_objetivo: new FormControl( this.agendamientoNuevo.fecha_objetivo?formatDate(this.agendamientoNuevo.fecha_objetivo,'yyyy-MM-dd','en'):'', []),
       tipo_periodo: new FormControl(this.agendamientoNuevo.tipo_periodo? this.agendamientoNuevo.tipo_periodo:this.getTipoPeriodo()[0].value,[]),
       periodo: new FormControl(this.agendamientoNuevo.periodo, []),
       auto: new FormControl(this.agendamientoNuevo.auto, [Validators.required]),
@@ -85,15 +84,13 @@ export class NuevoAgendamientoComponent implements OnInit {
   enviarRegistro(event:Event){
     event.preventDefault();
      if(this.form.valid && this.validarPeriodo() && this.validarUsuarioAuto()){
-        let value = this.form.value; 
+        let value = this.form.value;
+        this.form.value.fecha_objetivo?Object.assign(value,{fecha_objetivo:new Date(this.form.value.fecha_objetivo).toLocaleString('en-ES', { timeZone: 'UTC' })}):false;
+        Object.assign(value,{tipo_servicio:this.setTipoServicio(value.tipo_servicio)});
         if(this.state == 'nuevo'){
-          Object.assign(value,{fecha_creacion:new Date()});
-          Object.assign(value,{tipo_servicio:this.setTipoServicio(value.tipo_servicio)});
           console.log(value);
-          this.agendamientoServ.post(value).then(result =>{this.reloadPage.emit()});
+          this.agendamientoServ.post(value).then(result =>{this.reloadPage.emit();this.vaciar()});
         }else{
-          Object.assign(value,{fecha_alteracion:new Date()});
-          Object.assign(value,{tipo_servicio:this.setTipoServicio(value.tipo_servicio)});
           console.log(value);
           this.agendamientoServ.put(value,this.agendamientoNuevo.id).then(result =>{this.reloadPage.emit()});
         }

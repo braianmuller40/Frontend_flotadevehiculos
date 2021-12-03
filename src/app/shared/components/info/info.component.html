@@ -4,8 +4,9 @@
             <th *ngFor="let item of forKeys(reformCampos(objeto))">{{replaceData(item) | titlecase}}</th>
         </tr>
         <tr id="body">
-            <td *ngFor="let i of forValues(reformCampos(objeto))">{{i}}</td>
+            <td *ngFor="let i of forValues(formatDate(reformCampos(objeto)))">{{i}}</td>
         </tr>
     </table>
 </div>
+
 

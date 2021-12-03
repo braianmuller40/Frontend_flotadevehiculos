@@ -1,5 +1,5 @@
 #panelExterior{
-    width: 800px;
+    width: 750px;
     height: 410px;
     display: flex;
     flex-direction: column;
@@ -41,8 +41,8 @@ textarea{
     resize:none;
 }
 #inputFechaObjetivo{
-    width: 230px;
-    height: 40px;
+    width: 180px;
+    height: 38px;
 }
 #calend{
   width: 250px;

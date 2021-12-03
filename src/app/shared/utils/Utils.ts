@@ -1,3 +1,5 @@
+import { formatDate } from "@angular/common";
+
 export class Utils{
     static ip(){
         return "http://192.168.163.128:3000";
@@ -15,5 +17,13 @@ export class Utils{
 
     static replaceData(item:any){
         return item.replace("fecha_alteracion","alteracion registro").replace("fecha_creacion","creacion registro").replace("ano","Año").replace("_"," ");
+    }
+
+    static formatDateItem(item:any){
+        for(let i of Object.keys(item)){
+            item[i] && (i == 'fecha_creacion' || i == 'fecha_alteracion' || i == 'fecha_objetivo')?
+             item[i]=formatDate(item[i],'yyyy-MM-dd','en'):false;
+        }
+        return item;
     }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 import { TipoServicio } from 'src/app/shared/models/tipo-servicio.model';
 import { TiposServiciosService } from 'src/app/shared/services/tipos-servicios/tipos-servicios.service';
 import { ValidatorService } from 'src/app/shared/services/validatorForm/validator.service';
@@ -23,7 +24,7 @@ export class TiposServicioComponent implements OnInit {
     descripcion:'',
   }
 
-  constructor(private validatoForm:ValidatorService, private tiposServ: TiposServiciosService) { 
+  constructor(private validatoForm:ValidatorService, private tiposServ: TiposServiciosService,  private messageService: MessageService) { 
     this.form = new FormGroup({});
   }
 
@@ -117,7 +118,8 @@ export class TiposServicioComponent implements OnInit {
   eliminarTipo(){
     this.itemSelected? this.tiposServ.delete(this.itemSelected.id)
     .then(result => {this.getTipos()})
-    .catch(err => console.log("No se pudo eliminar 'puede que sea por que esta asignado'")) : false;
+    .catch(err => this.messageService.add({severity:'error', summary:'Error', detail:'No se pudo eliminar'}))
+     : false;
   }
 
 }

@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChange, ViewChild } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import {MenuItem} from 'primeng/api';
+import {MenuItem, MessageService} from 'primeng/api';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { AuthService } from './shared/services/auth/auth.service';
+import { UsuariosService } from './shared/services/usuarios/usuarios.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,7 @@ export class AppComponent implements OnInit{
 
   displayConfiguraciones:boolean = false;
 
-  constructor(private authServ:AuthService,private router:Router) {
+  constructor(private authServ:AuthService,private usuarioServ: UsuariosService) {
   }
 
   ngOnInit() {
@@ -59,19 +60,33 @@ export class AppComponent implements OnInit{
         command:() =>this.salir()
       },
   ];
+
+   this.authServ.getByToken().then(result => this.setAdmin(result)).catch(result =>{});
   }
 
+  setAdmin(result:any){
+   if(result.role && result.role == 'ADMINISTRADOR'){
+    this.authServ.admin=true;
+   }
+  }
 
   isLogged(){
     return this.authServ.userLogged();
   }
 
-  
-  displayConfig(){
-    this.displayConfiguraciones=true;
-    this.conf.displayFalse();
+  countExp(){
+    let exp = this.authServ.getExp()?.getTime() || 0;
+    let now = new Date().getTime();
+    return exp-now <= 0?true:false;
   }
 
+  displayReLog(){
+   return this.countExp();
+  }
+
+  displayConfig(){
+    this.displayConfiguraciones=true;
+  }
 
   salir(){
     this.authServ.logout();

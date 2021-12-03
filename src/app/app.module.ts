@@ -13,19 +13,23 @@ import { AgendamientosModule } from './modules/agendamientos/agendamientos.modul
 import { ServiciosModule } from './modules/servicios/servicios.module';
 import { HomeModule } from './modules/home/home.module';
 import { UsuariosModule } from './modules/usuarios/usuarios.module';
-import { SharedModule } from 'primeng/api';
+import { ConfirmationService, SharedModule } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
 import { ConfiguracionesComponent } from './configuraciones/configuraciones.component';
 import { MenuModule} from 'primeng/menu';
 import { CambiarContrasenaComponent } from './configuraciones/components/cambiar-contrasena/cambiar-contrasena.component';
 import { TiposServicioComponent } from './configuraciones/components/tipos-servicio/tipos-servicio.component';
-import {InputTextModule} from 'primeng/inputtext';
+import { InputTextModule} from 'primeng/inputtext';
 import { TooltipModule } from 'primeng/tooltip';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InterceptorService } from './shared/services/auth/token-interceptor/interceptor.service';
 import { CommonModule } from '@angular/common';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
-
+import { ReLoginComponent } from './core/components/re-login/re-login.component';
+import { CardModule } from 'primeng/card';
+import { ToastModule } from 'primeng/toast';
+import { PasswordModule} from 'primeng/password';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
@@ -34,15 +38,14 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     AppComponent,
     ConfiguracionesComponent,
     CambiarContrasenaComponent,
-    TiposServicioComponent
-
+    TiposServicioComponent,
+    ReLoginComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     MenubarModule,
-    SharedModule,
     ButtonModule,
     LoginModule,
     AutosModule,
@@ -58,14 +61,21 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     ReactiveFormsModule,
     CommonModule,
     OverlayPanelModule,
-    AgendamientosModule
+    AgendamientosModule,
+    CardModule,
+    SharedModule,
+    ToastModule,
+    PasswordModule,
+    ConfirmDialogModule
 
   ],
   providers: [AuthService,
     {  provide: HTTP_INTERCEPTORS,
        useClass: InterceptorService,
        multi: true
-    }],
+    },
+    ConfirmationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

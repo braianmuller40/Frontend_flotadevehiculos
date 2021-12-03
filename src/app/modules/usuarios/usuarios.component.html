@@ -6,7 +6,7 @@
                     <label>Lista de Usuarios</label>
                 </div>
                 <div id="divAdd" class="row">
-                    <button pButton icon="fas fa-plus" (click)="displayState('nuevo',{})"></button>
+                    <button *ngIf="adminPermision()" pButton icon="fas fa-plus" (click)="displayState('nuevo',{})"></button>
                     <div id="divBusqueda"><app-busqueda modo="filter" [condiciones]="condicionesBusqueda" (resultado)="resultadoBusqueda($event)"></app-busqueda></div>
                 </div>
             </ng-template>
@@ -17,8 +17,8 @@
                      <th>Login</th>
                      <th>Descripcion</th>
                      <th>Tipo Usuario</th>
-                     <!--<th><i class="far fa-plus-square"></i> Info</th>-->
-                     <th><i class="fas fa-wrench"></i>  Opciones</th>
+                     <th><i class="far fa-plus-square"></i> Info</th>
+                     <th *ngIf="adminPermision()"><i class="fas fa-wrench"></i>  Opciones</th>
                  </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item>
@@ -28,11 +28,11 @@
                     <td>{{item.login}}</td>
                     <td>{{item.descripcion}}</td>
                     <td>{{item.tipo_usuario}}</td>
-                   <!--<td><button pButton icon="fas fa-info" (click)="displayInfo=true"></button></td>--> 
-                    <td>
+                    <td><button pButton icon="fas fa-info" (click)="displayInf(item)"></button></td>
+                    <td *ngIf="adminPermision()">
                         <div id="options">
                             <button pButton icon="fas fa-pen" (click)="displayState('editar',item)"></button>
-                            <button pButton icon="fas fa-trash" (click)="eliminarItem(item)"></button>
+                            <button pButton icon="fas fa-trash" (click)="confirmElim(item)"></button>
                         </div>
                     </td>
                 </tr>
@@ -43,6 +43,11 @@
         </div>
     </div>
 </div>
+
 <p-dialog [header]="titleModal" [modal]="true" [(visible)]="displayNuevoUsuario">
     <app-nuevo-usuario #user (reloadPage)="reloadPage()"></app-nuevo-usuario>
+</p-dialog>
+
+<p-dialog header="Informacion adicional" [(visible)]="displayInfo">
+    <app-info #usuari [campos]="['fecha_creacion','fecha_alteracion']"></app-info> 
 </p-dialog>

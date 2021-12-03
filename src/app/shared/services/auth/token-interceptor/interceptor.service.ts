@@ -37,11 +37,9 @@ export class InterceptorService implements HttpInterceptor{
 
   captureError(error:HttpErrorResponse){
     if(error.status == 403 || error.status == 401){
-      //Unauthorized
-      this.auth.logout();
+
     }else if(error.status == 0 || error.status == 404 || error.status == 500){
-      //disconect
-      this.auth.logout();
+      
     }
     return throwError("No se pudo completar la operacion");
   }

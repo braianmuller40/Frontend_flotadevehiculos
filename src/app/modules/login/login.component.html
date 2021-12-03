@@ -12,18 +12,14 @@
                 <label id="labelLogin">Login</label>
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input id="inputUsername" type="text" pInputText placeholder="Username" (blur)="user.login = getValue($event)" (keyup.enter)="focusPassword()">         
+                    <input id="inputUsername" type="text" pInputText [value]="user.login" placeholder="Username" (blur)="user.login = getValue($event)" (keyup.enter)="focusPassword()">         
                 </div>
                 <div class="p-inputgroup">
                     <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
-                    <input id="inputPassword" type="password" pInputText placeholder="Password" (blur)="user.password = getValue($event)" (keyup.enter)="focusBtnEnter()">         
+                    <input id="inputPassword" type="password" pInputText [value]="user.password" placeholder="Password" (blur)="user.password = getValue($event)" (keyup.enter)="focusBtnEnter()">         
                 </div>
                 <button pButton id="btnEnter" label="Enter" (click)="login()"></button>
-                <label id="registro" (click)="displayRegistro=true">Registre-se</label>
             </div>
         </p-card>  
     </div>
 </div>
-<p-dialog [modal]="true" header="Registro" [(visible)]="displayRegistro">
-    <app-register></app-register>
-</p-dialog>

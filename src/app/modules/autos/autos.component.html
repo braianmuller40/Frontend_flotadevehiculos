@@ -6,7 +6,7 @@
                     <label>Lista de Autos</label>
                 </div>
                 <div id="divAdd" class="row">
-                    <button pButton icon="fas fa-plus" (click)="displayState('nuevo',{})"></button>
+                    <button *ngIf="adminPermision()" pButton icon="fas fa-plus" (click)="displayState('nuevo',{})"></button>
                     <div id="divBusqueda"><app-busqueda modo="filter" [condiciones]="condicionesBusqueda" (resultado)="resultadoBusqueda($event)"></app-busqueda></div>
                 </div>
             </ng-template>
@@ -20,7 +20,7 @@
                      <th>Kilometraje</th>
                      <th>Disponibilidad</th>
                      <th><i class="far fa-plus-square"></i> Info</th>
-                     <th><i class="fas fa-wrench"></i>  Opciones</th>
+                     <th *ngIf="adminPermision()"><i class="fas fa-wrench"></i>  Opciones</th>
                  </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item>
@@ -33,17 +33,17 @@
                     <td>{{item.kilometraje}}</td>
                     <td>{{item.disponibilidad}}</td>
                     <td><button pButton icon="fas fa-info" (click)="displayInf(item)"></button></td>
-                    <td>
+                    <td *ngIf="adminPermision()">
                         <div id="options">
                             <button pButton icon="fas fa-pen" (click)="displayState('editar',item)"></button>
-                            <button pButton icon="fas fa-trash" (click)="eliminarItem(item)"></button>
+                            <button pButton icon="fas fa-trash" (click)="confirmElim(item)"></button>
                         </div>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
         <div id="paginator" class="p-col-10">
-            <p-paginator  [rows]="5" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)" [showJumpToPageDropdown]="true" [showPageLinks]="false"></p-paginator>
+            <p-paginator  [rows]="5" [totalRecords]="totalRecords" (onPageChange)="onPageChange($event)"></p-paginator>
         </div>
     </div>
 </div>
@@ -53,5 +53,5 @@
 </p-dialog>
 
 <p-dialog header="Informacion adicional" [(visible)]="displayInfo">
-    <app-info-auto #aut [campos]="['ano_fabricacion','fecha_creacion','fecha_alteracion','ano_modelo','chassis']"></app-info-auto> 
+    <app-info #aut [campos]="['ano_fabricacion','fecha_creacion','fecha_alteracion','ano_modelo','chassis']"></app-info> 
 </p-dialog>

@@ -17,7 +17,7 @@ export class UsuariosService extends GenericService<Usuario>{
    url= Utils.ip();
 
   async changePassword(user:ChangeUser){
-    return await this.httpClient.post(this.url+"/usuarios/ChangePassword", user).toPromise();
+    return await this.httpClient.post(this.url+"/usuarios/changePassword", user).toPromise();
   }
 
   async getUserByLogin(login:string){

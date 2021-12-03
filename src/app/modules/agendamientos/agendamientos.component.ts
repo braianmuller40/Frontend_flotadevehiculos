@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
+import { ConfirmationService } from "primeng/api";
+import { InfoComponent } from "src/app/shared/components/info/info.component";
 import { TipoPeriodo } from "src/app/shared/enums/tipo-periodo.enum";
 import { Agendamiento } from "src/app/shared/models/agendamiento.model";
+import { Auto } from "src/app/shared/models/auto.model";
 import { AgendamientoService } from "src/app/shared/services/agendamiento/agendamiento.service";
-import { InfoRelationComponent } from "./components/info-relation/info-relation.component";
+import { AuthService } from "src/app/shared/services/auth/auth.service";
 import { NuevoAgendamientoComponent } from "./components/nuevo-agendamiento/nuevo-agendamiento.component";
 
 
@@ -13,9 +16,9 @@ import { NuevoAgendamientoComponent } from "./components/nuevo-agendamiento/nuev
 })
 export class AgendamientosComponent implements OnInit {
   @ViewChild(NuevoAgendamientoComponent) agendamiento!:NuevoAgendamientoComponent;
-  @ViewChild('usuari') usuari!:InfoRelationComponent;
-  @ViewChild('aut') aut!:InfoRelationComponent;
-  @ViewChild('inf') inf!:InfoRelationComponent;
+  @ViewChild('usuari') usuari!:InfoComponent;
+  @ViewChild('aut') aut!:InfoComponent;
+  @ViewChild('inf') inf!:InfoComponent;
   
 
   listaAgendamientos!:Agendamiento[];
@@ -30,15 +33,37 @@ export class AgendamientosComponent implements OnInit {
   displayInfo:boolean=false;
   displayNuevoAgendamiento:boolean=false;
   condicionesBusqueda=[
-    {tipo_periodo:"select",  enum:Object.values(TipoPeriodo)}
+    {tipo_periodo:"select",  enum:Object.values(TipoPeriodo)},
+    {periodo:"number"},
+    {fecha_objetivo:"date"},
+    {writes:['tipo_agendamiento']},
+    {relations:[
+      {usuario:['nombre','login','descripcion']},
+      {auto:['chapa','modelo','descripcion']},
+      {tipo_servicio:['descripcion']},
+    ]},
   ];
 
-  constructor(public agendamientosServ:AgendamientoService) { }
+  constructor(public agendamientosServ:AgendamientoService,private confirmationService: ConfirmationService, private authServ:AuthService) { }
 
   ngOnInit(): void {
     this.getAgendamientos(this.skip,this.take,this.filter);
   }
 
+  confirmElim(item:Agendamiento) {
+    this.confirmationService.confirm({
+      message: 'Quieres proceder a eliminar el agendamiento de '+item.auto.chapa+'?',
+      header: 'Confirmacion',
+      icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.agendamientosServ.delete(item.id).then(result =>{this.reloadPage()});
+        }
+    });
+  }
+
+  adminPermision(){
+    return this.authServ.admin;
+  }
 
   getAgendamientos(skip:number,take:number,event:any){
       this.agendamientosServ.getPerFilter({skip:skip, take:take, obj:JSON.stringify(event), join:["usuario","auto","tipo_servicio"]}).then(result => {this.listaAgendamientos = result});

@@ -10,15 +10,15 @@
                 </div>
                 <div id="panel2" class="column">
                     <div id="divInterior">
-                         <div *ngIf="this.form.value.tipo_agendamiento == 'FIJO'" class="p-field column margen">
+                         <div *ngIf="form.value.tipo_agendamiento == 'FIJO'" class="p-field column margen">
                             <label>Fecha Objetivo</label>
                             <input id="inputFechaObjetivo" type="date" [pTooltip]="formError.fechaObj" tooltipEvent="focus" formControlName="fecha_objetivo">
                          </div>
-                         <div *ngIf="this.form.value.tipo_agendamiento == 'PERIODICO'" id="divTipoPeriodo" class="p-field column">
+                         <div *ngIf="form.value.tipo_agendamiento == 'PERIODICO'" id="divTipoPeriodo" class="p-field column">
                              <label>Tipo Periodo</label>
                             <p-selectButton [options]="getTipoPeriodo()" optionLabel="name" optionValue="value" formControlName="tipo_periodo"></p-selectButton>
                         </div> 
-                        <div *ngIf="this.form.value.tipo_agendamiento == 'PERIODICO'" class="p-field column margen">
+                        <div *ngIf="form.value.tipo_agendamiento == 'PERIODICO'" class="p-field column margen">
                             <label>Periodo</label>
                             <input  id="periodo" type="number" pInputText [pTooltip]="formError.period" tooltipEvent="focus" formControlName="periodo"/>
                         </div>
@@ -37,7 +37,7 @@
                 <div class="p-field column divBusquedas">
                     <label>Tipo de Servicio</label>
                     <select id="tipo_servicio" formControlName="tipo_servicio" [pTooltip]="formError.tipo_servicio" tooltipEvent="focus">
-                        <option [ngValue]="null">Seleccione</option>
+                        <option value="">selecciones un item</option>
                         <option *ngFor="let item of listaTiposServicio" [ngValue]="item.id">{{item.descripcion}}</option>
                     </select>
                 </div>

@@ -15,13 +15,14 @@ import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NuevoAgendamientoComponent } from './components/nuevo-agendamiento/nuevo-agendamiento.component';
-import { InfoRelationComponent } from './components/info-relation/info-relation.component';
-import {CalendarModule} from 'primeng/calendar';
+import { CalendarModule} from 'primeng/calendar';
+import { ConfirmationService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 
 @NgModule({
-  declarations: [AgendamientosComponent, NuevoAgendamientoComponent, InfoRelationComponent],
+  declarations: [AgendamientosComponent, NuevoAgendamientoComponent],
   imports: [
     CommonModule,
     TableModule,
@@ -38,7 +39,9 @@ import {CalendarModule} from 'primeng/calendar';
     InputNumberModule,
     OverlayPanelModule,
     SharedModule,
-    CalendarModule
-  ]
+    CalendarModule,
+    ConfirmDialogModule
+  ],
+  providers: [ConfirmationService]
 })
 export class AgendamientosModule { }

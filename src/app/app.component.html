@@ -1,6 +1,9 @@
+<p-toast [baseZIndex]="1" position="top-right"></p-toast>
+<p-confirmDialog [closable]="false" [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+
 <!--Modal configuraciones-->
 <p-dialog [modal]="true" header="Configuraciones" [(visible)]="displayConfiguraciones">
-    <app-configuraciones #conf ></app-configuraciones>
+    <app-configuraciones *ngIf="displayConfiguraciones" #conf ></app-configuraciones>
 </p-dialog>
 
 <!--Logo de Datapar-->
@@ -11,8 +14,13 @@
 <div id="panelExterior">
     <p-menubar [model]="items" *ngIf="isLogged()">
         <ng-template pTemplate="start">
-            <img src="../assets/imagenes/car.jpg" height="48px" class="p-mr-2">
+            <img src="../assets/imagenes/car.jpg" height="45px" margin-top="12px" class="p-mr-2">
         </ng-template>
     </p-menubar>
     <router-outlet></router-outlet>
 </div>
+
+<p-dialog [modal]="true" [closable]="false" [visible]="displayReLog() && isLogged()">
+    <app-re-login></app-re-login>
+<p-dialog>
+

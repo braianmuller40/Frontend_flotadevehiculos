@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
+import { InfoComponent } from 'src/app/shared/components/info/info.component';
 import { DisponibilidadAuto } from 'src/app/shared/enums/disponibilidad-auto.enum';
 import { Auto } from 'src/app/shared/models/auto.model';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { AutosService } from 'src/app/shared/services/autos/autos.service';
-import { InfoAutoComponent } from './components/info-auto/info-auto.component';
 import { NuevoAutoComponent } from './components/nuevo-auto/nuevo-auto.component';
 
 @Component({
@@ -13,7 +14,7 @@ import { NuevoAutoComponent } from './components/nuevo-auto/nuevo-auto.component
 })
 export class AutosComponent implements OnInit {
   @ViewChild(NuevoAutoComponent) auto!:NuevoAutoComponent;
-  @ViewChild('aut') aut!:InfoAutoComponent;
+  @ViewChild('aut') aut!:InfoComponent;
 
   listaAutos!:Auto[];
   Auto!:Auto;
@@ -35,12 +36,26 @@ export class AutosComponent implements OnInit {
     {campos:["id","chapa","modelo","disponibilidad"]}
   ];
 
-  constructor(private autosServ:AutosService) { }
+  constructor(private autosServ:AutosService,private confirmationService: ConfirmationService, private authServ:AuthService) { }
 
   ngOnInit(): void {
     this.getAutos(this.skip,this.take,this.filter);
   }
 
+  confirmElim(item:Auto) {
+    this.confirmationService.confirm({
+      message: 'Quieres proceder a eliminar '+item.chapa+'?',
+      header: 'Confirmacion',
+      icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.autosServ.delete(item.id).then(result =>{this.reloadPage()});
+        }
+    });
+  }
+
+  adminPermision(){
+    return this.authServ.admin;
+  }
 
   getAutos(skip:number,take:number,event:any){
       this.autosServ.getPerFilter({skip:skip, take:take, obj:JSON.stringify(event)}).then(result => {this.listaAutos = result});
