@@ -5,6 +5,7 @@ import { Estado } from 'src/app/shared/enums/estado.enum';
 import { Servicio } from 'src/app/shared/models/servicio.model';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { ServiciosService } from 'src/app/shared/services/servicios/servicios.service';
+import { Utils } from 'src/app/shared/utils/utils';
 import { NuevoServicioComponent } from './components/nuevo-servicio/nuevo-servicio.component';
 
 @Component({
@@ -13,7 +14,7 @@ import { NuevoServicioComponent } from './components/nuevo-servicio/nuevo-servic
   styleUrls: ['./servicios.component.css']
 })
 export class ServiciosComponent implements OnInit {
-  @ViewChild(NuevoServicioComponent) servicio!:NuevoServicioComponent;
+  @ViewChild('servici') servici!:NuevoServicioComponent;
   @ViewChild('usuari') usuari!:InfoComponent;
   @ViewChild('aut') aut!:InfoComponent;
   @ViewChild('inf') inf!:InfoComponent;
@@ -39,7 +40,7 @@ export class ServiciosComponent implements OnInit {
     {writes:['descripcion']},
     {relations:[
       {usuario:['nombre','login','descripcion']},
-      {auto:['chapa','modelo','descripcion']},
+      {auto:['chapa','modelo','descripcion','fabricante','chassis']},
       {tipo_servicio:['descripcion']},
     ]},
   ];
@@ -65,13 +66,18 @@ export class ServiciosComponent implements OnInit {
     return this.authServ.admin;
   }
 
+  formatDateItem(item:any){
+    return Utils.formatDateItem(item);
+  }
+
   getServicios(skip:number,take:number,event:any){
-      this.serviciosServ.getPerFilter({skip:skip, take:take, obj:JSON.stringify(event)}).then(result => {this.listaServicios = result});
+    console.log(event);
+      this.serviciosServ.getPerFilter({skip:skip, take:take, obj:JSON.stringify(event), join:["usuario","auto","tipo_servicio"]}).then(result => {this.listaServicios = result});
       this.countRep(event);
   }
 
   countRep(event:any){
-     this.serviciosServ.countRepository({obj:JSON.stringify(event)}).then(result=> {this.totalRecords=result});
+     this.serviciosServ.countRepository({obj:JSON.stringify(event),join:["usuario","auto","tipo_servicio"]}).then(result=> {this.totalRecords=result});
   }
 
   onPageChange(event:any){
@@ -80,13 +86,19 @@ export class ServiciosComponent implements OnInit {
   }
 
   displayState(state:string, item:any){
-   // state == 'nuevo' ? this.servicio.defineState('nuevo', item):this.servicio.defineState('editar', item);
-    this.titleModal = state == 'nuevo'? 'Nuevo Servicio':'Editar Servicio';
+    state == 'finalizar' ? this.servici.defineState('finalizar', item):
+    state =='cancelar'?this.servici.defineState('cancelar', item):this.servici.defineState('nuevo', item);
+    this.titleModal = state == 'finalizar'? 'Finalizar Servicio':
+    state == 'cancelar'? 'Cancelar Servicio':'Nuevo Servicio';
     this.displayNuevoServicio=true;
   }
 
   reloadPage(){
     this.getServicios(this.skip,this.take,this.filter);
+  }
+
+  exitNuevo(event:any){
+    this.displayNuevoServicio=event;
   }
 
   eliminarItem(item:Servicio){

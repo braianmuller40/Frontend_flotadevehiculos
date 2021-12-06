@@ -74,14 +74,10 @@ export class AppComponent implements OnInit{
     return this.authServ.userLogged();
   }
 
-  countExp(){
+  displayReLog(){
     let exp = this.authServ.getExp()?.getTime() || 0;
     let now = new Date().getTime();
-    return exp-now <= 0?true:false;
-  }
-
-  displayReLog(){
-   return this.countExp();
+    return exp-now <= 5000?true:false;
   }
 
   displayConfig(){

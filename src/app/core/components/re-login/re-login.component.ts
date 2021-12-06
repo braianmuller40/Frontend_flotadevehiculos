@@ -30,6 +30,11 @@ export class ReLoginComponent implements OnInit {
   }
 
 
+  logout(){
+    this.authServ.logout();
+  }
+
+
   getValue(event:any){
     return event.target.value;
   }

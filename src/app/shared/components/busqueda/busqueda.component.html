@@ -17,7 +17,7 @@
                 </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item>
-                    <tr (click)="getClickTable(item)">
+                    <tr *ngIf="condByCampos(item)" (click)="getClickTable(item)">
                         <td *ngFor="let campo of campos">{{item[campo]}}</td>
                     </tr>
             </ng-template>

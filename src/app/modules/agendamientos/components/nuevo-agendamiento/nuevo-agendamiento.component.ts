@@ -27,6 +27,7 @@ export class NuevoAgendamientoComponent implements OnInit {
   stateOptions: any[] = [];
   agendamientoNuevo:Agendamiento = new Agendamiento();
   state!:string;
+  swValidations:boolean=false;
   listaTiposServicio = new Array();
   formError:{[key:string]:string}={
     period:'',
@@ -36,11 +37,11 @@ export class NuevoAgendamientoComponent implements OnInit {
   }
   condicionesBusquedaUsuarios=[
     {writes:["nombre","login"]},
-    {campos:["id","nombre","login"]},
+    {campos:["nombre","login"]},
   ];
   condicionesBusquedaAutos=[
     {writes:["chapa","modelo","fabricante"]},
-    {campos:["id","chapa","modelo","fabricante"]},
+    {campos:["modelo","chapa","fabricante"]},
   ];
 
 
@@ -79,6 +80,14 @@ export class NuevoAgendamientoComponent implements OnInit {
       tipo_servicio: new FormControl(this.agendamientoNuevo.tipo_servicio?this.agendamientoNuevo.tipo_servicio.id:"", [Validators.required]),
     });
     this.formErrorClean();
+    
+    this.form.valueChanges
+    .subscribe(value => {
+    if(this.swValidations){
+       this.getFormErrors();
+       this.focusValidation();
+    }
+    });
   }
 
   enviarRegistro(event:Event){
@@ -95,6 +104,7 @@ export class NuevoAgendamientoComponent implements OnInit {
           this.agendamientoServ.put(value,this.agendamientoNuevo.id).then(result =>{this.reloadPage.emit()});
         }
      }else{
+       this.swValidations=true;
        this.getFormErrors();
        this.focusValidation();
      }

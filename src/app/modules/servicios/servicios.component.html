@@ -14,35 +14,34 @@
                  <tr>
                      <th>Fecha Inicio</th>
                      <th>Fecha Fin</th>
-                     <th>KM Inicial</th>
-                     <th>KM Final</th>
+                     <th>KM Recorrido</th>
                      <th>Valor</th>
                      <th>Estado</th>
                      <th>Tipo Servicio</th>
                      <th>Descripcion</th>
-                     <th>Usuario</th>
-                     <th>Auto</th>
+                     <th><i class="fas fa-car"></i> Auto</th>
+                     <th><i class="fas fa-user"></i> Usuario</th>
                      <th><i class="far fa-plus-square"></i> Info</th>
                      <th *ngIf="adminPermision()"><i class="fas fa-wrench"></i>  Opciones</th>
                  </tr>
             </ng-template>
             <ng-template pTemplate="body" let-item>
                 <tr>
-                    <td>{{item.fecha_inicio}}</td>
-                    <td>{{item.fecha_fin}}</td>
-                    <td>{{item.km_inicial}}</td>
-                    <td>{{item.km_final}}</td>
+                    <td>{{formatDateItem(item).fecha_inicio}}</td>
+                    <td>{{formatDateItem(item).fecha_fin}}</td>
+                    <td>{{item.km_final?item.km_final - item.km_inicial:""}}</td>
                     <td>{{item.valor_servicio}}</td>
-                    <td>{{item.estado}}</td>
+                    <td><div class="bord">{{item.estado}}</div></td>
                     <td>{{item.tipo_servicio.descripcion}}</td>
                     <td>{{item.descripcion}}</td>
-                    <td><button pButton icon="fas fa-user" (click)="displayUsuari(item.usuario)"></button></td>
                     <td><button pButton icon="fas fa-car" (click)="displayAut(item.auto)"></button></td>
+                    <td><button pButton icon="fas fa-user" (click)="displayUsuari(item.usuario)"></button></td>
                     <td><button pButton icon="fas fa-info" (click)="displayInf(item)"></button></td>
-                    <td *ngIf="adminPermision()">
+                    <td>
                         <div id="options">
-                            <button pButton icon="fas fa-pen" (click)="displayState('editar',item)"></button>
-                            <button pButton icon="fas fa-trash" (click)="confirmElim(item)"></button>
+                            <button *ngIf="item.estado == 'EN_PROCESO'" pButton icon="fas fa-ban" (click)="displayState('cancelar',item)"></button>
+                            <button *ngIf="item.estado == 'EN_PROCESO'" pButton icon="fas fa-check" (click)="displayState('finalizar',item)"></button>
+                            <button *ngIf="adminPermision() && item.estado !== 'EN_PROCESO'" pButton icon="fas fa-trash" (click)="confirmElim(item)"></button>
                         </div>
                     </td>
                 </tr>
@@ -55,7 +54,7 @@
 </div>
 
 <p-dialog [header]="titleModal" [modal]="true" [(visible)]="displayNuevoServicio">
-    <app-nuevo-servicio #servicio (reloadPage)="reloadPage()"></app-nuevo-servicio>
+    <app-nuevo-servicio #servici (reloadPage)="reloadPage()" (exitNuevo)="exitNuevo($event)"></app-nuevo-servicio>
 </p-dialog>
 
 

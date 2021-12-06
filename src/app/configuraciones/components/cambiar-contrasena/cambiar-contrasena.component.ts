@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/shared/services/auth/auth.service';
 export class CambiarContrasenaComponent implements OnInit {
 
   formCambiar: FormGroup;
+  swValidations:boolean=false;
   formError:{[key:string]:string}={
     password:'',
     new_password:''
@@ -32,6 +33,14 @@ export class CambiarContrasenaComponent implements OnInit {
       password: new FormControl('', [Validators.required]),
       new_password: new FormControl('', [Validators.required])
     });
+
+    this.formCambiar.valueChanges
+    .subscribe(value => {
+    if(this.swValidations){
+       this.getFormErrors();
+       this.focusValidation();
+    }
+    });
   }
 
   enviarRegistro(event:Event){
@@ -39,6 +48,7 @@ export class CambiarContrasenaComponent implements OnInit {
      if(this.formCambiar.valid){
         this.confirmSend(this.formCambiar.value);
      }else{
+       this.swValidations=true;
        this.getFormErrors();
        this.focusValidation();
      }

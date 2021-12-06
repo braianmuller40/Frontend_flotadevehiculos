@@ -19,6 +19,7 @@ export class TiposServicioComponent implements OnInit {
   listaTiposServicio = new Array();
   displayModElim:boolean=true;
   displayGuardCancel:boolean=false;
+  swValidations:boolean=false;
 
   formError:{[key:string]:string}={
     descripcion:'',
@@ -37,6 +38,14 @@ export class TiposServicioComponent implements OnInit {
     this.form = new FormGroup({
       descripcion: new FormControl('', [Validators.required]),
     });
+
+    this.form.valueChanges
+    .subscribe(value => {
+    if(this.swValidations){
+       this.getFormErrors();
+       this.focusValidation();
+    }
+    });
   }
 
   enviarRegistro(event:Event){
@@ -46,6 +55,7 @@ export class TiposServicioComponent implements OnInit {
         Object.assign(value,{fecha_creacion:new Date()});
         this.tiposServ.post(value).then(result =>{this.buildForm(),this.getTipos()})
      }else{
+       this.swValidations=true;
        this.getFormErrors();
        this.focusValidation();
      }

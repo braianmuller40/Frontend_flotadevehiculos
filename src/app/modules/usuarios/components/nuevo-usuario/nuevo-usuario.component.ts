@@ -23,6 +23,7 @@ export class NuevoUsuarioComponent implements OnInit {
     descripcion:'',
     existe:''
   }
+  swValidations:boolean=false;
 
 
   constructor(private validatorForm:ValidatorService, private usuarioServ: UsuariosService) {
@@ -48,6 +49,13 @@ export class NuevoUsuarioComponent implements OnInit {
       tipo_usuario: new FormControl(this.usuarioNuevo.tipo_usuario? this.usuarioNuevo.tipo_usuario:'USUARIO',[]),
     });
     this.formErrorClean();
+    this.form.valueChanges
+    .subscribe(value => {
+    if(this.swValidations){
+       this.getFormErrors();
+       this.focusValidation();
+    }
+    });
   }
 
   enviarRegistro(event:Event){
@@ -61,6 +69,7 @@ export class NuevoUsuarioComponent implements OnInit {
           this.usuarioServ.put(value,this.usuarioNuevo.id).then(result =>{this.reloadPage.emit()});
         }
      }else{
+       this.swValidations=true;
        this.getFormErrors();
        this.focusValidation();
      }

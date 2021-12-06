@@ -11,6 +11,7 @@ export class ValidatorService {
     {required:"Es requerido"},
     {maxlength:"Exediste la cantidad de caracteres"},
     {existe:"Ya existe en el sistema"},
+    {km_final_menor:"Este kilometraje es menor a la actual del auto"}
   ];
 
   constructor() { }

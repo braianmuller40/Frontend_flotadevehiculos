@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { DisponibilidadAuto } from '../../enums/disponibilidad-auto.enum';
 import { Utils } from '../../utils/utils';
 
 @Component({
@@ -16,6 +17,7 @@ export class BusquedaComponent implements OnInit{
     filter:{[key:string]:any}={};
     colorState:{[key:string]:any}={};
     enum:{[key:string]:any}={};
+    condCampos:any;
     items = [];
     editTarget:any;
     inputB:string="";
@@ -46,6 +48,9 @@ export class BusquedaComponent implements OnInit{
         }
         if(key == "relations"){
           this.filter[key] = i[key];
+        }
+        if(key == "condCampos"){
+          this.condCampos = i[key];
         }
         if(key == "campos"){    // Son los campos referente a la lista que desplegara en modo "list"
           this.campos = i[key];
@@ -159,6 +164,19 @@ export class BusquedaComponent implements OnInit{
       }
       return sw;
     }
+
+    condByCampos(item:any){
+      if(this.condCampos){
+        for(let i in item){
+          for(let t in this.condCampos){
+            if(i==t && item[i] !== this.condCampos[t]){
+              return false;
+            }
+          }
+        }
+      }
+      return true;
+    }
 ////////////////////////////////////////////////////////////////////////////
     showMsgError(msg:string,id:string){
         this.formError.inputB=msg;
@@ -186,5 +204,6 @@ export class BusquedaComponent implements OnInit{
       this.modo=="list"?this.serv.getPerFilter({skip:this.skip, take:this.take, obj:JSON.stringify(this.filter)}).then((result:any) => {this.items = result}):
       this.resultado.emit(this.filter);
     }
+
   
 }

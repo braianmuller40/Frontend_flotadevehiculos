@@ -17,6 +17,7 @@ export class NuevoAutoComponent implements OnInit {
   stateOptions: any[] = [];
   autoNuevo:Auto = new Auto();
   state!:string;
+  swValidations:boolean=false;
   formError:{[key:string]:string}={
     chapa:'',
     fabricante:'',
@@ -57,6 +58,13 @@ export class NuevoAutoComponent implements OnInit {
       disponibilidad: new FormControl(this.autoNuevo.disponibilidad? this.autoNuevo.disponibilidad:this.getDisponibilidadAuto()[0].value,[]),
     });
     this.formErrorClean();
+    this.form.valueChanges
+    .subscribe(value => {
+    if(this.swValidations){
+       this.getFormErrors();
+       this.focusValidation();
+    }
+    });
   }
 
   enviarRegistro(event:Event){
@@ -69,6 +77,7 @@ export class NuevoAutoComponent implements OnInit {
           this.autoServ.put(value,this.autoNuevo.id).then(result =>{this.reloadPage.emit()});
         }
      }else{
+       this.swValidations=true;
        this.getFormErrors();
        this.focusValidation();
      }

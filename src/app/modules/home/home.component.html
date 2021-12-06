@@ -1,2 +1,31 @@
-<p>HOME</p>
+<div id="background">
+    <div id="box">
+        <div id="divTitle" class="p-d-flex p-ai-center p-jc-between">
+           <!--<label>Dashboard</label>-->
+        </div>
+        <div id="header">
+            <div class="itemHeader">
+                <div class="itemHeaderMid"></div>
+                <div class="itemHeaderBot"></div>
+            </div>
+            <div class="itemHeader">
+                <div class="itemHeaderMid"><label>{{reformGs(formatN.format(totalGastosServicios))}}</label></div>
+                <div class="itemHeaderBot"><label>Gastos Totales en Servicios</label></div>
+            </div>
+            <div class="itemHeader">
+                <div class="itemHeaderMid"></div>
+                <div class="itemHeaderBot"></div>
+            </div>
+        </div>
+        <div id="body">
+            <div class="itemBody">
 
+            </div>
+            <div class="itemBody">
+                <p-chart type="bar" [data]="valorPerMonth" [options]="basicOptions">
+                    
+                </p-chart>
+            </div>
+        </div>
+    </div>
+</div>

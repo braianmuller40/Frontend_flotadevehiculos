@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { ConfirmationService } from "primeng/api";
 import { InfoComponent } from "src/app/shared/components/info/info.component";
+import { TipoAgendamiento } from "src/app/shared/enums/tipo-agendamiento.enum";
 import { TipoPeriodo } from "src/app/shared/enums/tipo-periodo.enum";
 import { Agendamiento } from "src/app/shared/models/agendamiento.model";
 import { Auto } from "src/app/shared/models/auto.model";
@@ -33,10 +34,10 @@ export class AgendamientosComponent implements OnInit {
   displayInfo:boolean=false;
   displayNuevoAgendamiento:boolean=false;
   condicionesBusqueda=[
+    {tipo_agendamiento:"select",  enum:Object.values(TipoAgendamiento)},
     {tipo_periodo:"select",  enum:Object.values(TipoPeriodo)},
     {periodo:"number"},
     {fecha_objetivo:"date"},
-    {writes:['tipo_agendamiento']},
     {relations:[
       {usuario:['nombre','login','descripcion']},
       {auto:['chapa','modelo','descripcion']},
@@ -66,6 +67,7 @@ export class AgendamientosComponent implements OnInit {
   }
 
   getAgendamientos(skip:number,take:number,event:any){
+    console.log(event);
       this.agendamientosServ.getPerFilter({skip:skip, take:take, obj:JSON.stringify(event), join:["usuario","auto","tipo_servicio"]}).then(result => {this.listaAgendamientos = result});
       this.countRep(event);
   }

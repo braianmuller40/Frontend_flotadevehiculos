@@ -31,17 +31,17 @@ export class InterceptorService implements HttpInterceptor{
     });
 
     return next.handle(reqClone).pipe(
-      catchError(this.captureError.bind(this))
+      //catchError(this.captureError.bind(this))
     );
   }
 
-  captureError(error:HttpErrorResponse){
+ /* captureError(error:HttpErrorResponse){
     if(error.status == 403 || error.status == 401){
 
     }else if(error.status == 0 || error.status == 404 || error.status == 500){
       
     }
     return throwError("No se pudo completar la operacion");
-  }
+  }*/
 
 }

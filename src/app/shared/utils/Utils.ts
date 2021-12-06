@@ -21,9 +21,15 @@ export class Utils{
 
     static formatDateItem(item:any){
         for(let i of Object.keys(item)){
-            item[i] && (i == 'fecha_creacion' || i == 'fecha_alteracion' || i == 'fecha_objetivo')?
+            item[i] && (i == 'fecha_creacion' || i == 'fecha_alteracion' || i == 'fecha_objetivo' || i == 'fecha_inicio' || i == 'fecha_fin')?
              item[i]=formatDate(item[i],'yyyy-MM-dd','en'):false;
         }
         return item;
     }
+
+
+    static getCurrentDate(){
+        let newDate = new Date();
+        return new Date(newDate.setMinutes(newDate.getMinutes() - newDate.getTimezoneOffset()));
+      }
 }
